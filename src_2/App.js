@@ -2,15 +2,14 @@ import './App.css'
 import Card from './components/Card.jsx'
 import Cards from './components/Cards.jsx'
 import SearchBar from './components/SearchBar.jsx'
-import styled from 'styled-components'
 import characters, { Rick } from './data.js'
-const Estrellas=styled.div`
-background-image:url(https://static.vecteezy.com/system/resources/thumbnails/001/806/801/small/glowing-stars-background-loop-free-video.jpg); backgound-size:100%`;
+import styles from './components/Card.module.css'
+
 function App () {
   return (
-    <Estrellas>
-    <div className='App' style={{ padding: '25px' }}>
-      <div>
+    /*<img src="https://img.freepik.com/foto-gratis/hermosas-estrellas-brillantes-cielo-nocturno_181624-622.jpg" alt>*/
+    <div className='App' style={{ padding: '25px' }} >
+      <div className={styles.listItem}>
         <Card
           name={Rick.name}
           species={Rick.species}
@@ -32,7 +31,6 @@ function App () {
         />
       </div>
     </div>
-    </Estrellas>
   )
 }
 

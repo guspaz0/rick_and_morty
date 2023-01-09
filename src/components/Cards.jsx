@@ -1,17 +1,30 @@
 import Card from './Card';
-/*import styles from './Card.module.css'*/
+import React from 'react';
+import styled from 'styled-components' 
+
+const StyledCard = styled(Card)`
+&:hover {
+   transform: scale(1.05);
+   transition: transform 0.5s;
+   transition-delay: 0.5s;
+}
+`;
 
 export default function Cards(props) {
    const { characters } = props;
-   return <div>
-      
-      {characters.map(char => <Card
-         name = {char.name}
-         species = {char.species}
-         gender = {char.gender}
-         image = {char.image}
-         onClose = {() => window.alert('simulamos que se cierra la ventana')}
-         />)
-      }
-   </div>;
+   return (
+      <div style={{display: 'flex', justifyContent: 'space-around'}}>
+        {characters.map(character => (
+          <StyledCard
+            key={character.name}
+            name={character.name}
+            species={character.species}
+            gender={character.gender}
+            image={character.image}
+            onClose={() => window.alert('Emulamos que se cierra la card')}
+          />
+        ))}
+      </div>
+    );
+    
 }
