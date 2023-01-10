@@ -10,6 +10,7 @@ const Card1 = styled.div`
    border-radius: 5%;
    box-shadow: 2px -6px 10px black;
    position:relative;
+   top: 100px;
 `;
 
 const Img = styled.img`
@@ -30,13 +31,22 @@ const Title = styled.h1`
    opacity: 1;
 `;
 
-const Text = styled.h2`
+const Specie = styled.h2`
    color: black;
    font-size: 1.2rem;
    font-weight: 400;
    position: absolute;
-   top: 250px;
+   top: 260px;
    left: 50px;
+`;
+
+const Gender = styled.h2`
+   color: black;
+   font-size: 1.2rem;
+   font-weight: 400;
+   position: absolute;
+   top: 260px;
+   left: 150px;
 `;
 const Button1 = styled.button` 
 background-color: rgb(200 0 0);
@@ -64,7 +74,8 @@ export default function Card(props) {
             <P1/>
             <Title>{props.name}</Title>
          <Img/>
-         <Text>{props.species}      {props.gender} </Text>
+         <Specie>{props.species}</Specie>
+         <Gender>{props.gender}</Gender>
       </Card1>
    );
 }
