@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 const Card1 = styled.div`
+   display: flex;
+   flex-direction: column;
+   align-items: center;
    width: 260px;
    height: 350px;
    background-color: white;
@@ -19,12 +22,12 @@ const Img = styled.img`
 
 const Title = styled.h1`
    color: white;
-   background-color: black;
    font-weight: bold;
    font-size: 1.2rem;
    position: absolute;
    left: 40px;
    bottom: 100px;
+   opacity: 1;
 `;
 
 const Text = styled.h2`
@@ -34,7 +37,6 @@ const Text = styled.h2`
    position: absolute;
    top: 250px;
    left: 50px;
-
 `;
 const Button1 = styled.button` 
 background-color: rgb(200 0 0);
@@ -43,12 +45,23 @@ position: absolute;
 left: 220px;
 top: 10px;
 `;
+const P1 = styled.p`
+   position: absolute;
+   background-color: black;
+   border-radius: 5px;
+   bottom: 95px;
+   left: 35px;
+   width: 150px;
+   height: 30px;
+   opacity: .5;
+`;
 
 export default function Card(props) {
    return (
       <Card1>
          <Button1 onClick={() => props.onClose()}>X</Button1>
          <Img  src={props.image} alt="img not found" />
+            <P1/>
             <Title>{props.name}</Title>
          <Img/>
          <Text>{props.species}      {props.gender} </Text>
