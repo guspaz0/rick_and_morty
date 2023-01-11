@@ -1,5 +1,6 @@
 import './SearchBar.css';
 import styled from 'styled-components';
+import { useEffect, useState } from 'react';
 
 const Navbar = styled.div`
    position: absolute;
@@ -23,11 +24,21 @@ const Navbar = styled.div`
    }
 `;
 
+
+
 export default function SearchBar(props) {
+   const [characters, setCharacters] = useState("");
+
+   const handleChange = (e) => {
+      const {value} = e.target;
+      console.log(value)
+      setCharacters(value)
+      }
+   
    return (
       <Navbar>
-         <input type='search' placeholder='Buscar' />
-         <button onClick={() => props.onSearch('un ID')}>Agregar</button> 
+         <input type='search' placeholder='Buscar' onChange={handleChange} />
+         <button onClick={() => props.onSearch(characters)}>Agregar</button> 
       </Navbar>
    );
 }

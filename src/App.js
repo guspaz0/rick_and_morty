@@ -1,7 +1,6 @@
+import { useState } from 'react'
 import './App.css'
-import Card from './components/Card.jsx'
 import Cards from './components/Cards.jsx'
-import SearchBar from './components/SearchBar.jsx'
 import styled from 'styled-components'
 import characters, { Rick } from './data.js'
 import Nav from './components/Nav.jsx'
@@ -14,11 +13,32 @@ const Estrellas = styled.div`
 `;
 
 function App () {
+  const [characters, setCharacters] = useState([
+
+  ])
+  // const example = {
+  //   name: 'Morty Smith',
+  //   species: 'Human',
+  //   gender: 'Male',
+  //   image: 'https://rickandmortyapi.com/api/character/avatar/2.jpeg',
+  // };
+
+  function onSearch(character) {
+    fetch(`https://rickandmortyapi.com/api/character/${character}`)
+      .then((response) => response.json())
+      .then((data) => {
+         if (data.name) {
+            setCharacters((oldChars) => [...oldChars, data]);
+         } else {
+            window.alert('No hay personajes con ese ID');
+         }
+      });
+  }
+
   return (
     <Estrellas>
       <div>
-        <SearchBar
-          onSearch={(characterID) => window.alert(characterID)}/>
+        <Nav onSearch={onSearch}/>
       </div>
       <div>
         <Cards
