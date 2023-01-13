@@ -35,6 +35,11 @@ function App () {
       });
   }
 
+  const onClose = (id) => {
+    setCharacters(characters.filter(char => char.id !== id))
+  } 
+
+
   return (
     <Estrellas>
       <div>
@@ -43,6 +48,7 @@ function App () {
       <div>
         <Cards
           characters={characters}
+          onClose={onClose}
         />
       </div>
     </Estrellas>

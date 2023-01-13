@@ -69,7 +69,7 @@ const P1 = styled.p`
 export default function Card(props) {
    return (
       <Card1>
-         <Button1 onClick={() => props.onClose()}>X</Button1>
+         <Button1 onClick={() => props.onClose(props.id)}>X</Button1>
          <Img  src={props.image} alt="img not found" />
             <P1/>
             <Title>{props.name}</Title>
