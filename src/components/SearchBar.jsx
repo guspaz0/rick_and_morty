@@ -1,6 +1,7 @@
-import './SearchBar.css';
+// import './SearchBar.css';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
+import { NavLink,Link } from 'react-router-dom';
 
 const Navbar = styled.div`
    position: absolute;
@@ -10,10 +11,20 @@ const Navbar = styled.div`
    right: 0px;
    background-color: slateblue;
    input {
+      text-align: center;
+      font: inherit;
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 15rem;
+      max-width: 100%;
+      top: 10px;
       position:absolute;
       right: 150px;
    }
    button {
+      background-color: green;
+      color: white;
       position: absolute;
       right: 20px;
       top: 13px;
@@ -38,7 +49,17 @@ export default function SearchBar(props) {
    return (
       <Navbar>
          <input type='search' placeholder='Buscar' onChange={handleChange} />
-         <button onClick={() => props.onSearch(characters)}>Agregar</button> 
+         <button onClick={() => props.onSearch(characters)}>Agregar</button>
+         <div>
+            <li>
+               <NavLink to='/about'>
+                  <span>About</span>
+               </NavLink>
+               <NavLink to='/detail'>
+                  <span>Detail</span>
+               </NavLink>
+            </li>
+         </div>
       </Navbar>
    );
 }
