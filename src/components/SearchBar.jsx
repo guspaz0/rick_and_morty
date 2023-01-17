@@ -36,7 +36,6 @@ const Navbar = styled.div`
 `;
 
 
-
 export default function SearchBar(props) {
    const [characters, setCharacters] = useState("");
 
@@ -50,16 +49,6 @@ export default function SearchBar(props) {
       <Navbar>
          <input type='search' placeholder='Buscar' onChange={handleChange} />
          <button onClick={() => props.onSearch(characters)}>Agregar</button>
-         <div>
-            <li>
-               <NavLink to='/about'>
-                  <span>About</span>
-               </NavLink>
-               <NavLink to='/detail'>
-                  <span>Detail</span>
-               </NavLink>
-            </li>
-         </div>
       </Navbar>
    );
 }
