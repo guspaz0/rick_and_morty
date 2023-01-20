@@ -3,15 +3,17 @@ import styled from "styled-components";
 
 const Card1 = styled.div`
    display: flex;
-   flex-direction: column;
-   align-items: center;
+   flex-wrap: wrap;
+   flex-direction: row;
+   justify-content: center;
+   position:relative;
+   margin-right: 20px;
    width: 260px;
    height: 350px;
    background-color: white;
    border-radius: 5%;
    box-shadow: 2px -6px 10px black;
-   position:relative;
-   top: 100px;
+   top: 0px;
 `;
 
 const Img = styled.img`
@@ -20,6 +22,7 @@ const Img = styled.img`
    width: 230px;
    position: relative;
    top: 50px;
+   left: 15px;
 `;
 
 const Title = styled.h1`
@@ -68,18 +71,19 @@ const P1 = styled.p`
    opacity: .5;
 `;
 
+
 export default function Card(props) {
-   return (
-      <Link to={`/detail/${props.id}`} onClick={() => props.onClose(props.id)} >
+   return ( 
       <Card1>
          <Button1 onClick={() => props.onClose(props.id)}>X</Button1>
-         <Img src={props.image} alt="img not found" />
-            <P1/>
-            <Title>{props.name}</Title>
-         <Img/>
+         <Link to={`/detail/${props.id}`} onClick={() => props.onClose(props.id)} >
+            <Img src={props.image} alt="img not found" />
+               <P1/>
+               <Title>{props.name}</Title>
+            <Img/>
+         </Link>
          <Specie>Specie:{props.species}</Specie>
          <Gender>Gender:{props.gender}</Gender>
       </Card1>
-      </Link>
       )
 }

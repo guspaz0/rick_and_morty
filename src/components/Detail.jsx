@@ -14,8 +14,8 @@ const Card1 = styled.div`
   border-radius: 5px;
   box-shadow: 2px -6px 10px black;
   position: relative;
-  left: 650px;
-  top: 100px;
+  /* left: 650px;
+  top: 100px; */
 `;
 
 const Img = styled.img`
@@ -120,6 +120,9 @@ export default function Detail(props) {
         return setCharacter({});
       }, [detailId]);
       
+  const onClose = (id) => {
+    setCharacter(character.filter(char => char.id !== id))
+  } 
     return(
         <Card1>
             <Img src={character.image} alt='not found'/>

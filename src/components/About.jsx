@@ -16,7 +16,7 @@ const AboutImg = styled.div`
     }
     img{
     border-radius: 200px;
-    width: 300px;
+    width: 250px;
     position: Absolute;
     top: 20px;
     right: 20px;

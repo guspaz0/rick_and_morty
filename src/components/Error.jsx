@@ -18,6 +18,7 @@ const ErrorMsg = styled.div`
 `
 
 export default function Error(){
+
     return(
         <ErrorMsg>
         <div>

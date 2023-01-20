@@ -1,4 +1,3 @@
-// import './SearchBar.css';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { NavLink,Link } from 'react-router-dom';
@@ -32,6 +31,11 @@ const Navbar = styled.div`
       height: 30px;
       border-radius: 5px;
       font-size: .5cm;
+      :hover{
+         background-color: yellow;
+         color: black;
+
+      }
    }
 `;
 
@@ -41,7 +45,6 @@ export default function SearchBar(props) {
 
    const handleChange = (e) => {
       const {value} = e.target;
-      console.log(value)
       setCharacters(value)
       }
    

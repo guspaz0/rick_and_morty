@@ -1,7 +1,7 @@
-import Card from './Card';
+import Card from '../Card/Card.jsx';
 import React from 'react';
-import styled from 'styled-components';
-import {Link} from 'react-router-dom';
+// import styles from "./Cards.module.css";
+import styled from 'styled-components' 
 
 const StyledCard = styled(Card)`
 &:hover {
@@ -21,7 +21,7 @@ export default function Cards(props) {
             name={character.name}
             species={character.species}
             gender={character.gender}
-            image={character.image} 
+            image={character.image}
             id={character.id}
             onClose={props.onClose}
           />
