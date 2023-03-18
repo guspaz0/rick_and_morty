@@ -33,17 +33,29 @@ function App () {
 
   const [characters, setCharacters] = useState([])
   
+  function search (value){
+    for (var i = 0; i < characters.length; i++) {
+      if (characters[i].id === value) {
+        return true
+      }
+    }
+  }
   function onSearch(character) {
     fetch(`https://rickandmortyapi.com/api/character/${character}`)
       .then((response) => response.json())
       .then((data) => {
           if (data.name) {
-            setCharacters((oldChars) => [...oldChars, data]);
+            if (search(data.id)) {
+              window.alert('El ID '+data.id+' ya existe')
+            } else {
+              setCharacters((oldChars) => [...oldChars, data]);
+            }
           } else {
             window.alert('No hay personajes con ese ID');
           }
       });
-  }
+    }
+
   useEffect(() => {
     !access && navigate('/');
   }, [access]);

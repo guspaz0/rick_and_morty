@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import React from 'react';
 import validation from './validation.js';
 
-const Login1 = styled.p`
-    display: grid;
+const Login1 = styled.div`
+    display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;

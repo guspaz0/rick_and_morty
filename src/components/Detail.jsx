@@ -90,11 +90,14 @@ const Locacion = styled.h2`
 const Button1 = styled.button` 
 background-color: rgb(200 0 0);
 font-weight:bold;
+font-size: 1.2rem;
 position: absolute;
-width: 50px;
+width: 100px;
+height: 30px;
 color: white;
-left: 200px;
+left: 170px;
 top: 5px;
+border-radius: 5px;
 
 
 :hover {
@@ -114,7 +117,7 @@ export default function Detail(props) {
           .then((response) => response.json())
           .then((char) => {
             if (char.name) {
-                console.log(char)
+              console.log(char)
               setCharacter(char);
             } else {
               window.alert("No hay personajes con ese ID");
@@ -145,7 +148,7 @@ export default function Detail(props) {
             <Specie>Specie: {character.species}</Specie>
             <Origen>Origen: {character.origin?.name}</Origen>
             <Locacion>Locacion: {character.location?.name}</Locacion>
-            <Button1><a onClick={GoBack}>volver</a></Button1>
+            <Button1><a onClick={GoBack}>Volver</a></Button1>
           </Card1> 
     )
 }

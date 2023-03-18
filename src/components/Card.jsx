@@ -55,11 +55,19 @@ const Gender = styled.h2`
 const Button1 = styled.button` 
 background-color: rgb(200 0 0);
 font-weight:bold;
+width: 25px;
+height: 25px;
 color: white;
 position: absolute;
 left: 220px;
 top: 10px;
-`;
+border-radius: 5px;
+:hover {
+   background-color: yellow;
+   color: black;
+ }
+ `;
+
 const P1 = styled.p`
    position: absolute;
    background-color: black;
@@ -69,14 +77,16 @@ const P1 = styled.p`
    width: 200px;
    height: 35px;
    opacity: .5;
+   
 `;
 
 
 export default function Card(props) {
    return ( 
       <Card1>
-         <Button1 onClick={() => props.onClose(props.id)}>X</Button1>
-         <Link to={`/detail/${props.id}`} onClick={() => props.onClose(props.id)} >
+         <Button1> <a onClick={() => props.onClose(props.id)}> X</a></Button1>
+         {/* onClick={() => props.onClose(props.id)} */}
+         <Link to={`/detail/${props.id}`}> 
             <Img src={props.image} alt="img not found" />
                <P1/>
                <Title>{props.name}</Title>
