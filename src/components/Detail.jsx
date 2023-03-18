@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Card1 = styled.div`
@@ -95,6 +95,12 @@ width: 50px;
 color: white;
 left: 200px;
 top: 5px;
+
+
+:hover {
+  background-color: yellow;
+  color: black;
+}
 `;
 
 
@@ -123,8 +129,13 @@ export default function Detail(props) {
   const onClose = (id) => {
     setCharacter(character.filter(char => char.id !== id))
   } 
+  const navigate = useNavigate();
+  const GoBack = () => {
+    navigate('/home')
+  };
     return(
         <Card1>
+            
             <Img src={character.image} alt='not found'/>
               <P1/>
               <Name>{character.name}</Name>
@@ -134,6 +145,7 @@ export default function Detail(props) {
             <Specie>Specie: {character.species}</Specie>
             <Origen>Origen: {character.origin?.name}</Origen>
             <Locacion>Locacion: {character.location?.name}</Locacion>
+            <Button1><a onClick={GoBack}>volver</a></Button1>
           </Card1> 
     )
 }
