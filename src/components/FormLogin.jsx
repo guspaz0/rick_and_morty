@@ -3,14 +3,12 @@ import React from 'react';
 import validation from './validation.js';
 
 const Login1 = styled.p`
-    display: flex;
-    flex-direction: column;
+    display: grid;
     justify-content: center;
     align-items: center;
-    position: absolute;
     text-align: center;
     width: 400px;
-    height: 300px;
+    height: 400px;
     background-color: gray;
     border-radius: 5px;
     box-shadow: 50% black;
@@ -36,6 +34,7 @@ const Login1 = styled.p`
     input{
         border-radius: 5px;
         font-size: .5cm;
+        margin-top: 10px;
     }
     .warning {
         color: red
@@ -45,6 +44,15 @@ const Login1 = styled.p`
         font-size: 15px;
         color: orange;
         margin-left: 5em;
+    }
+    img{
+        display: flex;
+        position: relative;
+        left: 100px;
+        height: 200px;
+        justify-content: center;
+        align-item: center;
+        border-radius: 130px;
     }
 ` 
 
@@ -80,6 +88,7 @@ return (
     <Login1>
     <div>
     <form onSubmit={handleSubmit}>
+        <img src='https://static.wikia.nocookie.net/rickandmorty/images/6/6d/CopMorty.png'></img>
         <label>Username:</label>
             <input name="username" type='text' placeholder='escriba el usuario...'
             value={userData.username} onChange={handleInputChange} className={errors.username && '.warning'}/>
