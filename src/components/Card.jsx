@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { connect } from "react-redux";
+import { useState, useEffect } from "react";
+import { addFavorite, deleteFavorite } from "../redux/actions";
 
 const Card1 = styled.div`
    display: flex;
@@ -65,8 +68,16 @@ border-radius: 5px;
 :hover {
    background-color: yellow;
    color: black;
- }
- `;
+} `;
+const Fav = styled.a` 
+background-color: white;
+width: 25px;
+height: 25px;
+color: white;
+position: absolute;
+left: 10px;
+top: 10px;
+`;
 
 const P1 = styled.p`
    position: absolute;
@@ -81,9 +92,40 @@ const P1 = styled.p`
 `;
 
 
-export default function Card(props) {
+export function Card(props) {
+
+   useEffect(() => {
+      props.myFavorites.forEach((fav) => {
+         if (fav.id === props.id) {
+            setIsFav(true);
+         }
+      });
+   }, [props.myFavorites]);
+   // eslint-disable-next-line react-hooks/exhaustive-deps
+
+   const [isFav,setIsFav] = useState(false);
+
+   function handleFavorite() {
+      if (isFav) {
+         setIsFav(false)
+         props.deleteFavorite(props.id)
+      } 
+      if(!isFav) {
+         setIsFav(true);
+         props.addFavorite(props)
+      }
+   }
+
    return ( 
+
       <Card1>
+         {
+            isFav ? (
+               <Fav><button onClick={handleFavorite}>❤️</button></Fav>
+            ) : (
+               <Fav><button onClick={handleFavorite}>🤍</button></Fav>
+            )
+         }
          <Button1> <a onClick={() => props.onClose(props.id)}> X</a></Button1>
          {/* onClick={() => props.onClose(props.id)} */}
          <Link to={`/detail/${props.id}`}> 
@@ -97,3 +139,23 @@ export default function Card(props) {
       </Card1>
       )
 }
+
+export function mapStateToProps(props) {
+   return {
+      myFavorites: props.myFavorites,
+   }
+}
+
+export function mapDispatchToProps(dispatch) {
+   return {
+      addFavorite: function (props) {
+         dispatch(addFavorite(props))
+      },
+      deleteFavorite: function (props) {
+         dispatch(deleteFavorite(props))
+      }
+   }
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card);

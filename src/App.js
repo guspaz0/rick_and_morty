@@ -9,6 +9,7 @@ import About from './components/About';
 import Detail from './components/Detail';
 import Error from './components/Error';
 import FormLogin from './components/FormLogin.jsx';
+import Favorites from './components/Favorites';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 const Estrellas = styled.div`
@@ -77,11 +78,13 @@ function App () {
     <Estrellas>
       {location.pathname !== '/' && <Nav onSearch={onSearch}/>}
       <Routes>
+        
         <Route exact path='/' element={<FormLogin login={login}/>} />
         <Route path='/home' element={<Cards characters={characters} onClose={onClose}/>} />
         <Route path='/about' element={<About/>} />
         <Route path='/detail/:detailId' element={<Detail/>} />
         <Route path='*' element={<Error/>} />
+        <Route path='/favorites' element={<Favorites/>} />
       </Routes>
     </Estrellas>
 
