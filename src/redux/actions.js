@@ -2,6 +2,7 @@ export const ADD_FAVORITE = 'ADD_FAVORITE';
 export const DELETE_FAVORITE = 'DELETE_FAVORITE';
 export const FILTER = 'FILTER';
 export const ORDER = 'ORDER';
+export const RESET = 'RESET';
 
 export function addFavorite(product) {
     return {
@@ -25,5 +26,10 @@ export function orderCards(id) {
     return {
         type: ORDER,
         payload: id,
+    }
+}
+export function orderReset() {
+    return {
+        type: RESET,
     }
 }

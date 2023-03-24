@@ -2,7 +2,7 @@ import Card from "./Card";
 import { connect, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from "styled-components";
-import { orderCards, filterCards } from "../redux/actions";
+import { orderCards, filterCards, orderReset } from "../redux/actions";
 
 const Card1 = styled.div`
    display: flex;
@@ -116,6 +116,10 @@ function handleChange(e) {
    }
 }
 
+function handleReset() {
+   dispatch(orderReset())
+}
+
    return(
    <>
    <DivSelector>
@@ -131,6 +135,7 @@ function handleChange(e) {
          <option value="Genderless">Genderless</option>
          <option value="unknown">unknown</option>
       </select>
+      <button onClick={handleReset}>Reset</button>
    </DivSelector>
       {props.myFavorites.map((x) => 
       <Card1>

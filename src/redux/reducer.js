@@ -1,4 +1,4 @@
-import { ADD_FAVORITE, DELETE_FAVORITE, FILTER, ORDER } from './actions';
+import { ADD_FAVORITE, DELETE_FAVORITE, FILTER, ORDER, RESET } from './actions';
 
 const initialState = {
     myFavorites: [],
@@ -38,7 +38,7 @@ const rootReducer = (state = initialState, {type, payload}) => {
                     myFavorites: [...state.myFavorites].sort((a,b) => a['id'] > b['id'] ? 1 : -1),
                 }
             };
-        case 'RESET':
+        case RESET:
             return {
                 ...state,
                 myFavorites: [...state.allCharacters],
