@@ -58,12 +58,12 @@ const Login1 = styled.div`
 
 export default function FormLogin(props) {
     const [userData, setUserData] = React.useState({      
-        username: '', 
+        username: '',
         password: '' 
     });
     
     const [errors, setErrors] = React.useState({
-        username: '', 
+        username: '',
         password: '' 
     })
     

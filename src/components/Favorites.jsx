@@ -1,7 +1,8 @@
 import Card from "./Card";
-import {connect} from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from "styled-components";
+import { orderCards, filterCards } from "../redux/actions";
 
 const Card1 = styled.div`
    display: flex;
@@ -89,14 +90,50 @@ const P1 = styled.p`
    opacity: .5;
    
 `;
-
+const DivSelector = styled.div`
+   display: flex;
+   position: absolute;
+   background-color: white;
+   align-items: center;
+   justify-content: space-around;
+   border-radius: 5px;
+   top: 100px;
+   left: center;
+   width: 500px;
+   height: 35px;
+   
+`;
 
 export function Favorites (props) {
-    console.log(props.myFavorites)
-    return(
-    <>
-        {props.myFavorites.map((x) => 
-        <Card1>
+
+const dispatch = useDispatch()
+
+function handleChange(e) {
+   if (e.target.name === 'Order') {
+      dispatch(orderCards(e.target.value))
+   } else {
+      dispatch(filterCards(e.target.value))
+   }
+}
+
+   return(
+   <>
+   <DivSelector>
+      <label for="order">Ordenar por id:</label>
+      <select name="Order" onChange={handleChange}>
+         <option value="Ascendente">Ascendente</option>
+         <option value="Descendente">Descendente</option>
+      </select>
+      <label for="Gender">Filtrar por género:</label>
+      <select name="Gender" onChange={handleChange}>
+         <option value="Male">Male</option>
+         <option value="Female">Female</option>
+         <option value="Genderless">Genderless</option>
+         <option value="unknown">unknown</option>
+      </select>
+   </DivSelector>
+      {props.myFavorites.map((x) => 
+      <Card1>
             <Link to={`/detail/${x.id}`}> 
             <Img src={x.image} alt="img not found" />
                <P1/>
@@ -105,10 +142,10 @@ export function Favorites (props) {
          </Link>
          <Specie>Specie:{x.species}</Specie>
          <Gender>Gender:{x.gender}</Gender>
-        </Card1>
-        )}
-    </>
-    );
+      </Card1>
+      )}
+   </>
+   );
 }
 
 export function mapStateToProps(props) {
