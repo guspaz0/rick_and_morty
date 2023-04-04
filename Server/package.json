@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "name": "server",
+  "version": "1.0.0",
+  "description": "backend app rick & morty prueba",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "nodemon ./src/index.js",
+    "test": "echo "
+  },
+  "author": "Gustavo Paz",
+  "license": "ISC"
+}
