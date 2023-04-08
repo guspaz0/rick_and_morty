@@ -2,6 +2,7 @@ import Card from "./Card";
 import { connect, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from "styled-components";
+import React from 'react';
 import { orderCards, filterCards, orderReset } from "../redux/actions";
 
 const Card1 = styled.div`

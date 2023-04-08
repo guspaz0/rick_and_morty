@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import React from 'react';
 import { useState, useEffect } from "react";
 import { addFavorite, deleteFavorite } from "../redux/actions";
 
@@ -101,7 +102,7 @@ export function Card(props) {
          }
       });
    }, [props.myFavorites]);
-   // eslint-disable-next-line react-hooks/exhaustive-deps
+   //eslint-disable-next-line react-hooks/exhaustive-deps
 
    const [isFav,setIsFav] = useState(false);
 
@@ -116,8 +117,7 @@ export function Card(props) {
       }
    }
 
-   return ( 
-
+   return (
       <Card1>
          {
             isFav ? (
