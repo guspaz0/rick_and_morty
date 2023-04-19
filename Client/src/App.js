@@ -42,7 +42,7 @@ function App () {
     }
   }
   function onSearch(character) {
-    fetch(`http://localhost:3001/rickandmorty/character/${character}`)
+    fetch(`http://localhost:3002/rickandmorty/character/${character}`)
       .then((response) => response.json())
       .then((data) => {
           if (data.name) {
@@ -61,15 +61,25 @@ function App () {
     !access && navigate('/');
   }, [access]);
 
-  function login(userData){
-    if (userData.password === password && userData.username === username) {
-      setAccess(true);
-      navigate('/home');
-    }
-    else {
-      window.alert("usuario o contraseña invalidos");
-    }
+//   function login(userData){
+//     if (userData.password === password && userData.username === username) {
+//       setAccess(true);
+//       navigate('/home');
+//     }
+//     else {
+//       window.alert("usuario o contraseña invalidos");
+//     }
+// }
+function login(userData) {
+  const { email, password } = userData;
+  const URL = 'http://localhost:3001/rickandmorty/login/';
+  axios(URL + `?email=${email}&password=${password}`).then(({ data }) => {
+     const { access } = data;
+     setAccess(data);
+     access && navigate('/home');
+  });
 }
+
   const onClose = (id) => {
     setCharacters(characters.filter(char => char.id !== id))
   } 
