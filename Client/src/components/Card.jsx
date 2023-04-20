@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import React from 'react';
 import { useState, useEffect } from "react";
-import { addFavorite, deleteFavorite } from "../redux/actions";
+import { addFav, removeFav } from "../redux/actions";
 
 const Card1 = styled.div`
    display: flex;
@@ -109,11 +109,11 @@ export function Card(props) {
    function handleFavorite() {
       if (isFav) {
          setIsFav(false)
-         props.deleteFavorite(props.id)
+         props.removeFav(props.id)
       } 
       if(!isFav) {
          setIsFav(true);
-         props.addFavorite(props)
+         props.addFav(props)
       }
    }
 
@@ -148,11 +148,11 @@ export function mapStateToProps(props) {
 
 export function mapDispatchToProps(dispatch) {
    return {
-      addFavorite: function (props) {
-         dispatch(addFavorite(props))
+      addFav: function (props) {
+         dispatch(addFav(props))
       },
-      deleteFavorite: function (props) {
-         dispatch(deleteFavorite(props))
+      removeFav: function (props) {
+         dispatch(removeFav(props))
       }
    }
 

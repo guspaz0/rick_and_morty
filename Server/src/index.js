@@ -1,9 +1,10 @@
-const { throws } = require('assert');
-const http = require('http');
-const PORT = 3002;
+// const { throws } = require('assert');
+// const http = require('http');
+
 //const data = require("./utils/data")
 const express = require('express');
 const server = express();
+const PORT = 3002;
 
 
 //const getCharById = require('./controllers/getCharById');

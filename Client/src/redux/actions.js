@@ -1,3 +1,4 @@
+import axios from 'axios';
 export const ADD_FAVORITE = 'ADD_FAVORITE';
 export const DELETE_FAVORITE = 'DELETE_FAVORITE';
 export const FILTER = 'FILTER';
@@ -6,7 +7,7 @@ export const RESET = 'RESET';
 export const ADD_FAV = 'ADD_FAV';
 export const REMOVE_FAV = 'REMOVE_FAV';
 
-import axios from "axios";
+
 // export function addFavorite(product) {
 //     return {
 //         type: ADD_FAVORITE,
@@ -16,7 +17,7 @@ import axios from "axios";
 
 // ACTION | addFav
 export function addFav(character) {
-    const endpoint = 'http://localhost:3001/rickandmorty/fav';
+    const endpoint = 'http://localhost:3002/rickandmorty/fav';
     return (dispatch) => {
         axios.post(endpoint, character).then(({ data }) => {
             return dispatch({
@@ -35,7 +36,7 @@ export function addFav(character) {
 //     }
 // }
 export function removeFav(id) {
-    const endpoint = 'http://localhost:3001/rickandmorty/fav/' + id;
+    const endpoint = 'http://localhost:3002/rickandmorty/fav/' + id;
     return (dispatch) => {
         axios.delete(endpoint).then(({ data }) => {
             return dispatch({

@@ -11,6 +11,7 @@ import Error from './components/Error';
 import FormLogin from './components/FormLogin.jsx';
 import Favorites from './components/Favorites';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Estrellas = styled.div`
   background-image: url(https://i.pinimg.com/originals/74/ce/23/74ce2337bade70a41d90adac7d861d23.jpg);
@@ -71,9 +72,9 @@ function App () {
 //     }
 // }
 function login(userData) {
-  const { email, password } = userData;
-  const URL = 'http://localhost:3001/rickandmorty/login/';
-  axios(URL + `?email=${email}&password=${password}`).then(({ data }) => {
+  const { username, password } = userData;
+  const URL = 'http://localhost:3002/rickandmorty/login/';
+  axios(URL + `?email=${username}&password=${password}`).then(({ data }) => {
      const { access } = data;
      setAccess(data);
      access && navigate('/home');

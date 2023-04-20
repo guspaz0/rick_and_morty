@@ -17,8 +17,9 @@ const Axios = require('axios');
 const URL = "https://rickandmortyapi.com/api/character/"
 
 const getCharById = function (req, res) {
-    Axios(`${URL}${req}`)
-        .then((data) => data.dat)
+    const { id } = req.params;
+    Axios.get(URL+id)
+        .then((data) => data.data)
         .then((objeto) => {
             if (objeto.error) {
                 res.writeHead(404, {'Content-Type':'text/plain'})
