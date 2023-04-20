@@ -31,7 +31,8 @@ const getCharById = function (req, res) {
                 species: objeto.species,
                 origin: objeto.origin,
                 image: objeto.image,
-                status: objeto.status }
+                status: objeto.status,
+                location: objeto.location }
             res.writeHead(200, { "Content-Type": "application/json" })
             res.end(JSON.stringify(character))
             }

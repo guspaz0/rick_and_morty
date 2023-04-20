@@ -3,7 +3,9 @@ const users = require('../utils/users');
 const login = function (req, res) {
     const {email, password} = req.query;
     const user = users.find(
-        (user) => user.email === email && user.password === password);
+        (e) => e.email === email && e.password === password);
+    console.log(req.query)
+    console.log(users)
     if (user) {
         res.status(200).json({ access: true });
     } else {
