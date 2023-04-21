@@ -117,7 +117,6 @@ export default function Detail(props) {
           .then((response) => response.json())
           .then((char) => {
             if (char.name) {
-              console.log(char)
               setCharacter(char);
             } else {
               window.alert("No hay personajes con ese ID");
