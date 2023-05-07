@@ -2,8 +2,8 @@ const Favorite = require('../DB_connection');
 
 const postFavhandler = async (fav) => {
     //const data = {name, origin, status, image, species, gender}
-    const [fav, created ] = await Favorite.findOrCreate({ where: fav})
-    return {fav, created}
+    const [Fav, created ] = await Favorite.findOrCreate({ where: fav})
+    return {Fav, created}
 }
 
 const postFav = async (req,res) => {

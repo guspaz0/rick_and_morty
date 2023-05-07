@@ -15,6 +15,7 @@ const register = async (email,password) => {
 const postUser = async (req, res) => {
     try {
         const { email, password } = req.body
+        console.log(req.body)
         if (email !== '' || password !== '') {
             res.status(400).json({ message: "Faltan datos" })};
         const {user, created} = await register(email,password);
