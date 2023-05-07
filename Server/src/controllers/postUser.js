@@ -7,8 +7,10 @@ const register = async (email,password) => {
             defaults: {password},
         })
         return {user, created}
+    } catch (error)  {
+        console.log(error)
     }
-}
+};
 
 const PostUser = async (req, res) => {
     try {
