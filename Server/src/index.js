@@ -5,6 +5,7 @@
 const express = require('express');
 const server = express();
 const PORT = 3002;
+const { conn } = require('./DB_connection');
 
 
 //const getCharById = require('./controllers/getCharById');
@@ -49,6 +50,15 @@ server.use((req, res, next) => {
 server.use(express.json())
 server.use("/rickandmorty", router)
 
-server.listen(PORT, () => {
-    console.log('Server raised in port: ' + PORT);
-});
+conn.sync({force: true})
+    .then(() => {
+        try {
+            server.listen(PORT, () => {
+                console.log('Server raised in port: ' + PORT);
+            });
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    )
+    .catch((error) => {console.log(error)})
