@@ -12,7 +12,7 @@ const register = async (email,password) => {
     }
 };
 
-const PostUser = async (req, res) => {
+const postUser = async (req, res) => {
     try {
         const { email, password } = req.body
         if (email !== '' || password !== '') {
@@ -29,4 +29,4 @@ const PostUser = async (req, res) => {
 
 }
 
-module.exports = PostUser
+module.exports = postUser
