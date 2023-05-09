@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const {User} = require('.././DB_connection');
 
 const findUser = async (email) => {
     const user = User.findOne({
@@ -8,6 +8,7 @@ const findUser = async (email) => {
 }
 
 const login = async (req,res) => {
+    console.log(req.query)
     try {
         const {email, password} = req.query;
         if (email === "" || password === "") {
@@ -19,9 +20,9 @@ const login = async (req,res) => {
         }
         if (password !== user.password) {
             res.status(403).json({message: 'Contraseña incorrecta'});
-        } else {
-            res.status(200).json({access: true});
         }
+        res.status(200).json( {access: true} );
+        
     } catch (error) {
         res.status(500).json({error: error.message})
     }

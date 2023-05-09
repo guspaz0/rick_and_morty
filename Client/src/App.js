@@ -31,9 +31,6 @@ function App () {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const username = 'gustip@gmail.com';
-  const password = 'gusti123';
-
   const [access, setAccess] = useState(false);
 
   const [characters, setCharacters] = useState([])
@@ -104,11 +101,13 @@ function App () {
 // }
 
 async function login(userData) {
-  const { username, password } = userData;
-  const URL = 'http://localhost:3002/rickandmorty/login/';
-  const {data} = await axios.get(URL+`?email=${username}&password=${password}`)
-  setAccess(data);
-  access && navigate('/home')
+  try {
+    const { username, password } = userData;
+    const URL = 'http://localhost:3002/rickandmorty/login/';
+    const {data} = await axios.get(URL+`?email=${username}&password=${password}`)
+    setAccess(data);
+    access && navigate('/home')
+  } catch (error) {console.log(error)}
 }
 
   const onClose = (id) => {

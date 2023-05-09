@@ -1,4 +1,4 @@
-const Favorite = require('../DB_connection');
+const {Favorite} = require('../DB_connection');
 
 const postFavhandler = async (fav) => {
     //const data = {name, origin, status, image, species, gender}
