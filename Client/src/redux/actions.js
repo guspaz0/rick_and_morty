@@ -33,6 +33,7 @@ const endpoint = 'http://localhost:3002/rickandmorty/fav'
 export function addFav(character){
     return async (dispatch) => {
     try {
+        //const char = {character.name, character.species, character.gender}
         const {data} = await axios.post(endpoint, character)
         return dispatch({
             type: ADD_FAV,

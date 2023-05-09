@@ -50,7 +50,7 @@ server.use((req, res, next) => {
 server.use(express.json())
 server.use("/rickandmorty", router)
 
-conn.sync({force: true})
+conn.sync({alter: true})
     .then(() => {
         try {
             server.listen(PORT, () => {

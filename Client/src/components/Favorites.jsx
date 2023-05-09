@@ -138,16 +138,16 @@ function handleReset() {
       </select>
       <button onClick={handleReset}>Reset</button>
    </DivSelector>
-      {props.myFavorites.map((x) => 
+      {props.myFavorites.map(({ id, name, species, image, gender }) => 
       <Card1>
-            <Link to={`/detail/${x.id}`}> 
-            <Img src={x.image} alt="img not found" />
+            <Link to={`/detail/${id}`}> 
+            <Img src={image} alt="img not found" />
                <P1/>
-               <Title>{x.name}</Title>
+               <Title>{name}</Title>
             <Img/>
          </Link>
-         <Specie>Specie:{x.species}</Specie>
-         <Gender>Gender:{x.gender}</Gender>
+         <Specie>Specie:{species}</Specie>
+         <Gender>Gender:{gender}</Gender>
       </Card1>
       )}
    </>
