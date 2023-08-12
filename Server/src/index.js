@@ -61,4 +61,6 @@ conn.sync({alter: true})
         }
     }
     )
-    .catch((error) => {console.log(error)})
+    .catch((error) => {
+        console.log(error)
+    })

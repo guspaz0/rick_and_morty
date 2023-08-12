@@ -18,11 +18,11 @@ const postUser = async (req, res) => {
         console.log(req.body)
         if (email === '' || password === '') {
             res.status(400).json({ message: "Faltan datos" })};
-        const {userReg, created} = await register(email, password);
+        const {userValidate, created} = await register(email, password);
         if (!created) {
             res.status(409).json({ message: "El usuario ya existe" });
         } else {
-            res.status(200).json([userReg]);
+            res.status(200).json([userValidate]);
         }
     } catch (error) {
         console.log({message: error.message})

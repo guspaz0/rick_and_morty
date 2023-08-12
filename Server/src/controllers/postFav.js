@@ -9,7 +9,7 @@ const postFavhandler = async (fav) => {
 const postFav = async (req,res) => {
     try {
         console.log(req.body)
-        const {name, species, gender, image} = req.body;
+        const {name, species, gender, origin, image, status} = req.body;
         if (!name || !gender || !species || !origin || !image || !status) {
             return res.status(401).json({ message: "Faltan datos" });
         }

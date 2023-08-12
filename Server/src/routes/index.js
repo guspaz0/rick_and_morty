@@ -8,7 +8,14 @@ const {
 const express = require('express');
 const router = express.Router();
 
-
+router.get("/", async (req,res) => {
+    try{
+        res.status(200).json('Api rick and morty')
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+    
+})
 router.get("/character/:id", getCharById);
 router.get("/login", login);
 router.post('/login', postUser);
