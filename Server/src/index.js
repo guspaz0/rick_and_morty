@@ -3,9 +3,12 @@
 
 //const data = require("./utils/data")
 const express = require('express');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
 const server = express();
-const PORT = 3002;
-const { conn } = require('./DB_connection');
+
+//const { conn } = require('./DB_connection');
 
 
 //const getCharById = require('./controllers/getCharById');
@@ -33,6 +36,13 @@ const { conn } = require('./DB_connection');
 
 const router = require('./routes');
 
+server.disable('x-powered-by')
+
+server.name = 'API';
+server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
+server.use(bodyParser.json({ limit: '50mb' }));
+server.use(cookieParser());
+server.use(morgan('dev'));
 server.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Credentials', 'true');
@@ -47,20 +57,16 @@ server.use((req, res, next) => {
     next();
 });
 
-server.use(express.json())
+//server.use(express.json())
 server.use("/rickandmorty", router)
 
-conn.sync({alter: true})
-    .then(() => {
-        try {
-            server.listen(PORT, () => {
-                console.log('Server raised in port: ' + PORT);
-            });
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    )
-    .catch((error) => {
-        console.log(error)
-    })
+
+server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+    const status = err.status || 500;
+    const message = err.message || err;
+    console.error(err);
+    res.status(status).send(message);
+});
+
+
+module.exports = server

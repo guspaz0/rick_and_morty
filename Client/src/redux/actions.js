@@ -7,6 +7,7 @@ export const ORDER = 'ORDER';
 export const RESET = 'RESET';
 export const ADD_FAV = 'ADD_FAV';
 export const REMOVE_FAV = 'REMOVE_FAV';
+export const ACCESS = "ACCESS";
 
 
 const endpoint = 'http://localhost:3002/rickandmorty'
@@ -83,12 +84,18 @@ export async function onSearchAction(character) {
     }
 }
 
-export async function loginAction(userData) {
-    try {
-        const { username, password } = userData;
-        const {data} = await axios.get(`${endpoint}/login/?email=${username}&password=${password}`)
-        return data
-    } catch (error) {
-        return error
+export function loginAction(userData) {
+    return async function (dispatch) {
+        try {
+            const { username, password } = userData;
+            const { data } = await axios.get(`${endpoint}/login/?email=${username}&password=${password}`)
+            dispatch ({
+                type: ACCESS,
+                payload: data.access
+            })
+        } catch (error) {
+            return error
+        }
     }
+
 }

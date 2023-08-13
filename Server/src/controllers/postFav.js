@@ -20,7 +20,6 @@ const postFav = async (req,res) => {
             res.status(200).json(allfav)
             console.log(allfav)
         }
-        
     } catch (error) {
         res.status(500).json({error: error.message})
     }

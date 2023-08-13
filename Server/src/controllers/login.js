@@ -13,7 +13,7 @@ const findUser = async (email) => {
 }
 
 const login = async (req,res) => {
-    console.log(req.query)
+    console.log(req.query, 'login get')
     try {
         const {email, password} = req.query;
         if (email === "" || password === "") {
@@ -22,11 +22,13 @@ const login = async (req,res) => {
         const user = await findUser(email)
         if (!user) {
             return res.status(404).json({message: 'Usuario no encontrado'});
+        } else {
+            if (password !== user.password) {
+                return res.status(403).json({message: 'Contraseña incorrecta'});
+            } else {
+                return res.status(200).json({access: true});
+            }
         }
-        if (password !== user.password) {
-            return res.status(403).json({message: 'Contraseña incorrecta'});
-        }
-        return res.status(200).json({access: true});
     } catch (error) {
         res.status(500).json({error: error.message})
     }

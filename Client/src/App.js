@@ -12,8 +12,9 @@ function App () {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const Allcharacters = useSelector(state => state.Characters);
+  const access = useSelector(state => state.Access)
 
-  const [access, setAccess] = useState(false);
+  //const [access, setAccess] = useState(false);
 
   const [characters, setCharacters] = useState([])
   
@@ -46,13 +47,17 @@ function App () {
 
   useEffect(() => {
     !access && navigate('/');
+    access && navigate('/home');
   }, [access]);
 
 async function login(userData) {
   try {
-    const data = await loginAction(userData);
-    setAccess(data);
-    access && navigate('/home')
+    dispatch(loginAction(userData));
+    // setAccess(() => {
+    //   if (data.access) return true
+    //   else return false
+    // });
+    //access && navigate('/home')
   } catch (error) {console.log(error)}
 }
 

@@ -1,9 +1,10 @@
-import { REMOVE_FAV, ADD_FAV, DELETE_FAVORITE, FILTER, ORDER, RESET, ADD_CHARACTER } from './actions';
+import { REMOVE_FAV, ADD_FAV, DELETE_FAVORITE, FILTER, ORDER, RESET, ADD_CHARACTER, ACCESS } from './actions';
 
 const initialState = {
     myFavorites: [],
     allCharacters: [],
     Characters: [],
+    Access: false,
 };
 
 const rootReducer = (state = initialState, {type, payload}) => {
@@ -16,6 +17,8 @@ const rootReducer = (state = initialState, {type, payload}) => {
         //         allCharacters: [...addFav],
         //     }
         // REDUCER | ADD_FAV
+        case ACCESS:
+            return {...state, Access: payload}
         case ADD_CHARACTER:
             return {
                 ...state,
