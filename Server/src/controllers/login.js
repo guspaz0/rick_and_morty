@@ -6,7 +6,6 @@ const findUser = async (email) => {
             where: {email},
             raw: true
         })
-        console.log(user, 'login atemp')
         return user;
     } catch (error) {
         return error

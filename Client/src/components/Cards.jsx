@@ -1,17 +1,8 @@
-import Card from './Card';
 import React from 'react';
-import styled from 'styled-components';
-import {Link} from 'react-router-dom';
+import { StyledCard } from '../CSS';
 
-const StyledCard = styled(Card)`
-&:hover {
-   transform: scale(1.05);
-   transition: transform 0.5s;
-   transition-delay: 0.5s;
-}
-`;
 
-export default function Cards(props) {
+export function Cards(props) {
    const { characters } = props;
    return (
       <div style={{display: 'flex', justifyContent: 'space-evenly'}}>
@@ -21,7 +12,9 @@ export default function Cards(props) {
             name={character.name}
             species={character.species}
             gender={character.gender}
-            image={character.image} 
+            image={character.image}
+            origin={character.origin}
+            status={character.status}
             id={character.id}
             onClose={props.onClose}
           />

@@ -1,4 +1,5 @@
 import axios from 'axios';
+export const ADD_CHARACTER = "ADD_CHARACTER";
 export const ADD_FAVORITE = 'ADD_FAVORITE';
 export const DELETE_FAVORITE = 'DELETE_FAVORITE';
 export const FILTER = 'FILTER';
@@ -8,33 +9,29 @@ export const ADD_FAV = 'ADD_FAV';
 export const REMOVE_FAV = 'REMOVE_FAV';
 
 
-// export function addFavorite(product) {
-//     return {
-//         type: ADD_FAVORITE,
-//         payload: product,
-//     }
-// }
+const endpoint = 'http://localhost:3002/rickandmorty'
 
-// ACTION | addFav
-// export function addFav(character) {
-//     const endpoint = 'http://localhost:3002/rickandmorty/fav';
-//     return (dispatch) => {
-//         axios.post(endpoint, character).then(({ data }) => {
-//             return dispatch({
-//                 type: ADD_FAV,
-//                 payload: data,
-//             });
-//         });
-//     };
-// };
-
-const endpoint = 'http://localhost:3002/rickandmorty/fav'
+export function addCharacter(character) {
+    return async function (dispatch) {
+        try{
+            const { data } = await axios.get(`${endpoint}/character/${character}`)
+            if (data.name) {
+                dispatch({
+                    type: ADD_CHARACTER,
+                    payload: data
+                })
+            }
+        } catch (error) {
+            return error
+        }
+    }
+} 
 
 export function addFav(character){
     return async (dispatch) => {
     try {
         //const char = {character.name, character.species, character.gender}
-        const {data} = await axios.post(endpoint, character)
+        const {data} = await axios.post(`${endpoint}/fav`, character)
         return dispatch({
             type: ADD_FAV,
             payload: data
@@ -44,27 +41,10 @@ export function addFav(character){
     }}
 }
 
-// export function deleteFavorite(id) {
-//     return {
-//         type: DELETE_FAVORITE,
-//         payload: id,
-//     }
-// }
-// export function removeFav(id) {
-//     const endpoint = 'http://localhost:3002/rickandmorty/fav/' + id;
-//     return (dispatch) => {
-//         axios.delete(endpoint).then(({ data }) => {
-//             return dispatch({
-//                 type: REMOVE_FAV,
-//                 payload: data,
-//             });
-//         });
-//     };
-// };
 export function removeFav(id) {
     return async (dispatch) => {
     try {
-        const {data} = await axios.delete(`${endpoint}/${id}`);
+        const {data} = await axios.delete(`${endpoint}/fav/${id}`);
         return dispatch({
             type: REMOVE_FAV,
             payload: data
@@ -90,5 +70,25 @@ export function orderCards(id) {
 export function orderReset() {
     return {
         type: RESET,
+    }
+}
+
+
+export async function onSearchAction(character) {
+    try {
+        const { data } = await axios.get(`${endpoint}/character/${character}`);
+        return data
+    } catch (error) {
+        return error
+    }
+}
+
+export async function loginAction(userData) {
+    try {
+        const { username, password } = userData;
+        const {data} = await axios.get(`${endpoint}/login/?email=${username}&password=${password}`)
+        return data
+    } catch (error) {
+        return error
     }
 }

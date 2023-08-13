@@ -1,35 +1,17 @@
-import './App.css';
 import React from 'react';
 import {useState, useEffect } from 'react';
-import Cards from './components/Cards';
-import styled from 'styled-components';
-// import characters, { Rick } from './data.js';
-import Nav from './components/Nav';
-import About from './components/About';
-import Detail from './components/Detail';
-import Error from './components/Error';
-import FormLogin from './components/FormLogin.jsx';
-import Favorites from './components/Favorites';
+import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-
-const Estrellas = styled.div`
-  background-image: url(https://i.pinimg.com/originals/74/ce/23/74ce2337bade70a41d90adac7d861d23.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-`;
+import { Cards, Nav, About, Detail, Error, FormLogin, Favorites } from './components/index'
+import {Estrellas} from './CSS';
+import { onSearchAction, loginAction, addCharacter } from './redux/actions';
 
 function App () {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const Allcharacters = useSelector(state => state.Characters);
 
   const [access, setAccess] = useState(false);
 
@@ -43,30 +25,16 @@ function App () {
     }
   }
   
-    //function onSearch(character) {
-    // 
-    // fetch(`http://localhost:3002/rickandmorty/character/${character}`)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //       if (data.name) {
-    //         if (search(data.id)) {
-    //           window.alert('El ID '+data.id+' ya existe')
-    //         } else {
-    //           setCharacters((oldChars) => [...oldChars, data]);
-    //         }
-    //       } else {
-    //         window.alert('No hay personajes con ese ID');
-    //       }
-    //   });
-  const URL = `http://localhost:3002/rickandmorty/character/`
+
   async function onSearch(character) {
   try {
-    const {data} = await axios.get(URL+character);
+    const data = await onSearchAction(character)
+    console.log(data,'onsearch function')
     if (data.name) {
       if (search(data.id)) {
         window.alert('El ID '+data.id+' ya existe')
       } else {
-        setCharacters((oldChars) => [...oldChars, data]);
+        setCharacters([...characters, data]);
       }
     } else {
       window.alert('No hay personajes con ese ID');
@@ -80,31 +48,9 @@ function App () {
     !access && navigate('/');
   }, [access]);
 
-//   function login(userData){
-//     if (userData.password === password && userData.username === username) {
-//       setAccess(true);
-//       navigate('/home');
-//     }
-//     else {
-//       window.alert("usuario o contraseña invalidos");
-//     }
-// }
-
-// function login(userData) {
-//   const { username, password } = userData;
-//   const URL = 'http://localhost:3002/rickandmorty/login/';
-//   axios(URL + `?email=${username}&password=${password}`).then(({ data }) => {
-//      const { access } = data;
-//      setAccess(data);
-//      access && navigate('/home');
-//   });
-// }
-
 async function login(userData) {
   try {
-    const { username, password } = userData;
-    const URL = 'http://localhost:3002/rickandmorty/login/';
-    const {data} = await axios.get(URL+`?email=${username}&password=${password}`)
+    const data = await loginAction(userData);
     setAccess(data);
     access && navigate('/home')
   } catch (error) {console.log(error)}
@@ -122,12 +68,11 @@ async function login(userData) {
         <Route exact path='/' element={<FormLogin login={login}/>} />
         <Route path='/home' element={<Cards characters={characters} onClose={onClose}/>} />
         <Route path='/about' element={<About/>} />
-        <Route path='/detail/:detailId' element={<Detail/>} />
+        <Route path='/detail/:detailId' element={<Detail/>}/>
         <Route path='*' element={<Error/>} />
         <Route path='/favorites' element={<Favorites/>} />
       </Routes>
     </Estrellas>
-
   );
 }
 
