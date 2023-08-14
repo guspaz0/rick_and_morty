@@ -1,63 +1,67 @@
-import { REMOVE_FAV, ADD_FAV, DELETE_FAVORITE, FILTER, ORDER, RESET, ADD_CHARACTER, ACCESS } from './actions';
+import { REMOVE_FAV, ADD_FAV, FILTER, ORDER, RESET, ADD_CHARACTER, DEL_CHARACTER, ACCESS, DB_FAVORITES } from './actions';
 
 const initialState = {
     myFavorites: [],
+    dbFavorites: [],
     allCharacters: [],
-    Characters: [],
     Access: false,
+    User: '',
 };
 
 const rootReducer = (state = initialState, {type, payload}) => {
     switch(type) {
-        // case ADD_FAVORITE:
-        //     const addFav = [...state.allCharacters, payload]
-        //     return {
-        //         ...state,
-        //         myFavorites: [...addFav],
-        //         allCharacters: [...addFav],
-        //     }
-        // REDUCER | ADD_FAV
         case ACCESS:
-            return {...state, Access: payload}
+            return {...state, Access: payload.access, User: payload.user}
         case ADD_CHARACTER:
             return {
                 ...state,
-                Characters: [...state.Characters, payload] 
+                allCharacters: [...state.allCharacters, payload] 
             }
-        case ADD_FAV:
-            return { ...state, myFavorites: payload, allCharacters: payload };
-        
-        case REMOVE_FAV:
-            return { ...state, myFavorites: payload };
-
-        case DELETE_FAVORITE:
-            const deleteFav = [...state.allCharacters].filter((x) => x['id'] !== payload)
+        case DEL_CHARACTER:
             return {
                 ...state,
-                myFavorites: [...deleteFav],
-                allCharacters: [...deleteFav],
+                allCharacters: state.allCharacters.filter((e) => e.id !== payload)
+            }
+        case ADD_FAV:
+            return {
+                ...state,
+                myFavorites: [...state.myFavorites, payload],
+                allCharacters: [...state.allCharacters, payload]
+            };
+        case REMOVE_FAV:
+            const deleteFav = state.allCharacters.filter((x) => x.id !== payload)
+            return {
+                ...state,
+                myFavorites: deleteFav,
+                allCharacters: deleteFav,
             }
         case FILTER:
             return {
                 ...state,
-                myFavorites: [...state.allCharacters].filter((x) => x['gender'] === payload)
+                myFavorites: state.allCharacters.filter((x) => x.gender === payload)
             }
         case ORDER:
             if (payload === 'Ascendente') {
                 return {
                     ...state,
-                    myFavorites: [...state.myFavorites].sort((a,b) => a['id'] < b['id'] ? 1 : -1),
+                    myFavorites: state.myFavorites.sort((a,b) => parseInt(a.id) < parseInt(b.id) ? 1 : -1),
                 }
             }else {
                 return {
                     ...state,
-                    myFavorites: [...state.myFavorites].sort((a,b) => a['id'] > b['id'] ? 1 : -1),
+                    myFavorites: state.myFavorites.sort((a,b) => parseInt(a.id) > parseInt(b.id) ? 1 : -1),
                 }
             };
         case RESET:
             return {
                 ...state,
                 myFavorites: [...state.allCharacters],
+            }
+        case DB_FAVORITES:
+            return {
+                ...state,
+                dbFavorites: payload,
+                myFavorites: payload
             }
         default:
             return {

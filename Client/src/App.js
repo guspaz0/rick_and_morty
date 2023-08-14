@@ -4,23 +4,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { Cards, Nav, About, Detail, Error, FormLogin, Favorites } from './components/index'
 import {Estrellas} from './CSS';
-import { onSearchAction, loginAction, addCharacter } from './redux/actions';
+import { onSearchAction, loginAction, addCharacter, delCharacter } from './redux/actions';
 
 function App () {
 
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const Allcharacters = useSelector(state => state.Characters);
   const access = useSelector(state => state.Access)
+  const allCharacters = useSelector(state => state.allCharacters)
 
   //const [access, setAccess] = useState(false);
 
-  const [characters, setCharacters] = useState([])
+  //const [characters, setCharacters] = useState([])
   
   function search (value){
-    for (var i = 0; i < characters.length; i++) {
-      if (characters[i].id === value) {
+    for (var i = 0; i < allCharacters.length; i++) {
+      if (allCharacters[i].id === value) {
         return true
       }
     }
@@ -30,12 +30,11 @@ function App () {
   async function onSearch(character) {
   try {
     const data = await onSearchAction(character)
-    console.log(data,'onsearch function')
     if (data.name) {
       if (search(data.id)) {
         window.alert('El ID '+data.id+' ya existe')
       } else {
-        setCharacters([...characters, data]);
+        dispatch(addCharacter(data.id));
       }
     } else {
       window.alert('No hay personajes con ese ID');
@@ -62,7 +61,8 @@ async function login(userData) {
 }
 
   const onClose = (id) => {
-    setCharacters(characters.filter(char => char.id !== id))
+    dispatch(delCharacter(id))
+    //setCharacters(characters.filter(char => char.id !== id))
   } 
 
   return (
@@ -71,7 +71,7 @@ async function login(userData) {
       <Routes>
         
         <Route exact path='/' element={<FormLogin login={login}/>} />
-        <Route path='/home' element={<Cards characters={characters} onClose={onClose}/>} />
+        <Route path='/home' element={<Cards characters={allCharacters} onClose={onClose}/>} />
         <Route path='/about' element={<About/>} />
         <Route path='/detail/:detailId' element={<Detail/>}/>
         <Route path='*' element={<Error/>} />

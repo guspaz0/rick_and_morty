@@ -2,9 +2,17 @@ import React from "react";
 import SearchBar from "./SearchBar";
 import { NavLink} from "react-router-dom";
 import { DetailStyle, FavStyle,AboutStyle2  } from '../CSS';
+import { getUserFavs } from "../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 
 export function Nav (props) {
+
+   const dispatch = useDispatch()
+   const User = useSelector(state => state.User)
+   function handleClick() {
+      dispatch(getUserFavs(User))
+   }
 
    return(
       <div>
@@ -16,7 +24,7 @@ export function Nav (props) {
             <DetailStyle>Home</DetailStyle>
          </NavLink>
          <NavLink to='/favorites'>
-            <FavStyle>Favoritos</FavStyle>
+            <FavStyle onClick={handleClick}>Favoritos</FavStyle>
          </NavLink>
       </div>
    );

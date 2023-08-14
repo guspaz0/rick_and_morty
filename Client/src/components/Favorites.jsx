@@ -1,14 +1,18 @@
-import { connect, useDispatch } from 'react-redux'
+import { connect, useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import React from 'react';
-import { orderCards, filterCards, orderReset } from "../redux/actions";
+import React, { useEffect } from 'react';
+import { orderCards, filterCards, orderReset, getUserFavs } from "../redux/actions";
 import {DivSelector, Card1, Img, P1, Title, Specie, Gender} from '../CSS/favorites';
 
 
 export function Favorites (props) {
 
-const dispatch = useDispatch()
+const myFavorites = useSelector(state => state.myFavorites)
+const dbFavs = useSelector(state => state.dbFavorites)
+const User = useSelector(state => state.User)
 
+const dispatch = useDispatch()
+//dispatch(getUserFavs(User))
 function handleChange(e) {
    if (e.target.name === 'Order') {
       dispatch(orderCards(e.target.value))
@@ -16,6 +20,11 @@ function handleChange(e) {
       dispatch(filterCards(e.target.value))
    }
 }
+useEffect(() => {
+   if (myFavorites.length !== dbFavs.length){
+      dispatch(getUserFavs(User))
+   }
+},[myFavorites, dbFavs])
 
 function handleReset() {
    dispatch(orderReset())
@@ -38,7 +47,7 @@ function handleReset() {
       </select>
       <button onClick={handleReset}>Reset</button>
    </DivSelector>
-      {props.myFavorites?.map(({ id, name, species, image, gender }) => 
+      {myFavorites?.map(({ id, name, species, image, gender }) => 
       <Card1>
             <Link to={`/detail/${id}`}> 
             <Img src={image} alt="img not found" />
@@ -54,10 +63,10 @@ function handleReset() {
    );
 }
 
-export function mapStateToProps(props) {
-return {
-   myFavorites: props.myFavorites,
-   }
-}
+// export function mapStateToProps(props) {
+// return {
+//    myFavorites: props.myFavorites,
+//    }
+// }
 
-export default connect(mapStateToProps)(Favorites);
+// export default connect(mapStateToProps)(Favorites);

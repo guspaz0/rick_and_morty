@@ -48,7 +48,7 @@ const URL = "https://rickandmortyapi.com/api/character/"
             const {id} = req.params
             const {data} = await Axios.get(URL+id)
             const { status, name, species, origin, image, gender, location } = data;
-            res.status(200).json({ id, status, name, species, origin, image, gender, location });
+            res.status(200).json({ id: parseInt(id), status, name, species, origin, image, gender, location });
         } catch (error) {
             res.status(500).json({message: error.message})
         }

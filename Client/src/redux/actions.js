@@ -1,13 +1,14 @@
 import axios from 'axios';
 export const ADD_CHARACTER = "ADD_CHARACTER";
+export const DEL_CHARACTER = "DEL_CHARACTER";
 export const ADD_FAVORITE = 'ADD_FAVORITE';
-export const DELETE_FAVORITE = 'DELETE_FAVORITE';
 export const FILTER = 'FILTER';
 export const ORDER = 'ORDER';
 export const RESET = 'RESET';
 export const ADD_FAV = 'ADD_FAV';
 export const REMOVE_FAV = 'REMOVE_FAV';
 export const ACCESS = "ACCESS";
+export const DB_FAVORITES = "DB_FAVORITES";
 
 
 const endpoint = 'http://localhost:3002/rickandmorty'
@@ -26,16 +27,24 @@ export function addCharacter(character) {
             return error
         }
     }
-} 
+}
+export function delCharacter(id) {
+    return function (dispatch) {
+        dispatch({
+            type: DEL_CHARACTER,
+            payload: id
+        })
+    }
+}
 
 export function addFav(character){
     return async (dispatch) => {
     try {
         //const char = {character.name, character.species, character.gender}
-        const {data} = await axios.post(`${endpoint}/fav`, character)
+        const { data } = await axios.post(`${endpoint}/fav`, character)
         return dispatch({
             type: ADD_FAV,
-            payload: data
+            payload: character
         })
     } catch (error) {
         console.log(error)
@@ -48,7 +57,7 @@ export function removeFav(id) {
         const {data} = await axios.delete(`${endpoint}/fav/${id}`);
         return dispatch({
             type: REMOVE_FAV,
-            payload: data
+            payload: id
             });
     } catch (error){
         console.log(error)
@@ -89,13 +98,31 @@ export function loginAction(userData) {
         try {
             const { username, password } = userData;
             const { data } = await axios.get(`${endpoint}/login/?email=${username}&password=${password}`)
-            dispatch ({
-                type: ACCESS,
-                payload: data.access
-            })
+            if (data.access) {
+                dispatch ({
+                    type: ACCESS,
+                    payload: {access: data.access, user: username}
+                })
+            }
         } catch (error) {
             return error
         }
     }
 
+}
+
+export function getUserFavs(username) {
+    return async function (dispatch) {
+        try{
+            const { data } = await axios.get(`${endpoint}/fav?user=${username}`)
+            if (data) {
+                dispatch({
+                    type: DB_FAVORITES,
+                    payload: data
+                })
+            }
+        }catch (error) {
+            return error
+        }
+    }
 }
