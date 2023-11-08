@@ -21,7 +21,7 @@ const server = require('./src/index.js')
 const { conn } = require('./src/DB_connection.js')
 
 
-conn.sync({alter: true}).then(() => {
+conn.sync({force: true}).then(() => {
         server.listen(3002, () => {
             console.log('Server raised in port: 3002');
         });

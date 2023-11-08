@@ -20,7 +20,10 @@ router.get("/", async (req,res) => {
 })
 router.get("/character/:id", getCharById);
 router.get("/login", login);
-router.post('/login', postUser);
+router.post('/login', (req,res, next) => {
+    console.log(req.body)
+    next()
+},postUser);
 router.post("/fav", postFav);
 router.get('/fav', getFav)
 router.delete("/fav/:id", deleteFav);
