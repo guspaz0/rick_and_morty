@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const Card1 = styled.div`
     display: flex;
-    flex-wrap: wrap;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     position:relative;
     margin-right: 20px;

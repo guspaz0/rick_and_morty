@@ -1,5 +1,5 @@
 import React from 'react';
-import img from './yo_perfil.jpg'
+//import img from './yo_perfil.jpg'
 import { AboutStyle } from '../CSS';
 
 
@@ -14,7 +14,7 @@ export function About(){
             <li>Nacionalidad: Argentina</li>
             <li>Estado/provincia: Santiago del estero, capital.</li>
         </ul>
-        <img src={img} alt="Yo"/>
+        <img src="" alt="Yo"/>
     </div>
     </AboutStyle>
     )
