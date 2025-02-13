@@ -1,15 +1,15 @@
-const { DataTypes } = require('sequelize');
+import { DataTypes, Sequelize } from "sequelize";
 
-module.exports = (sequelize) => {
+export const FavoriteModel = (sequelize: Sequelize) => {
    sequelize.define('Favorite', {
       id:{
          type: DataTypes.INTEGER,
          primaryKey: true,
-         allownull: false
+         allowNull: false
       },
       name: {
          type: DataTypes.STRING,
-         allownull: false
+         allowNull: false
       },
       status: {
          type: DataTypes.ENUM('Alive', 'Dead', 'Unknown'),
@@ -25,11 +25,11 @@ module.exports = (sequelize) => {
       },
       origin: {
          type: DataTypes.JSON,
-         allownull: false
+         allowNull: false
       },
       image: {
          type: DataTypes.STRING,
-         allownull: false,
+         allowNull: false,
       }
    }, { timestamps: false });
 };
