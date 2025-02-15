@@ -1,46 +1,38 @@
-import express,{Request, Response} from "express";
+import express,{ErrorRequestHandler, NextFunction, Request, Response} from "express";
 import cookieParser from "cookie-parser";
-import bodyParser from 'body-parser';
-import {conn} from './DB_connection';
+import cors from 'cors';
 import { PORT } from './configs/envs';
-import router from './routes';
+import favoritesRoutes from './routes/favorites';
+import userRoutes from './routes/users'
+import rickAndMortyApi from './routes/rickAndMotyApi'
+import auth from './middlewares/auth'
+import 'reflect-metadata'
+import { AppDataSource } from "./configs/data-source";
+import { preloadData } from './helpers/preloadData'
+
 
 const server = express();
 
 server.disable('x-powered-by')
 
-server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
-server.use(bodyParser.json({ limit: '50mb' }));
+server.use(express.urlencoded({ extended: true, limit: '50mb' }));
+server.use(express.json({ limit: '50mb' }));
 server.use(cookieParser());
-server.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    res.header(
-        'Access-Control-Allow-Headers',
-        'Origin, X-Requested-With, Content-Type, Accept'
-    );
-    res.header(
-        'Access-Control-Allow-Methods',
-        'GET, POST, OPTIONS, PUT, DELETE'
-    );
-    next();
-});
+server.use(cors({
+    origin: true,
+    credentials: true
+}))
 
-server.use("/rickandmorty", router)
+server.use("/rickandmorty", rickAndMortyApi)
+server.use("/favorites", auth.verifyToken, favoritesRoutes)
+server.use("/user", userRoutes)
 
-server.use((err, req: Request, res: Response, next) => { // eslint-disable-line no-unused-vars
-    const status = err.status || 500;
-    const message = err.message || err;
-    console.error(err);
-    res.status(status).send(message);
-});
-
-conn.sync({force: true}).then(() => {
-    server.listen(PORT, () => {
+const initializeApp = async ()=> {
+    await AppDataSource.initialize()
+    await preloadData()
+    server.listen(PORT, ()=> {
         console.log(`Server raised in port: ${PORT}`);
-    });
-})
-.catch((error) => {
-    console.log(error)
+    })
 }
-)
+
+initializeApp()
