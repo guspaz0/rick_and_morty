@@ -5,4 +5,3 @@ export * from './Detail.jsx';
 export * from './Error.jsx';
 export * from './FormLogin.jsx';
 export * from './Favorites.jsx';
-

@@ -1,6 +1,7 @@
-import { getTreeRepository } from 'typeorm'
 import {Gender, Species, Status} from '../interfaces/Character'
 import { IsNotEmpty, IsInt, IsFQDN} from 'class-validator'
+import { userRequestDTO } from './userRequestDTO'
+import { User } from '../entities/User'
 
 export default class FavoriteDTO {
     @IsInt()
@@ -15,14 +16,31 @@ export default class FavoriteDTO {
     private _species: Species
     @IsFQDN()
     private _image: string
+    
+    private _users: userRequestDTO[] | User[]
 
-    constructor(id: number, name: string, status: Status, gender: Gender, species: Species, image: string) {
+    constructor(
+        id: number, 
+        name: string, 
+        status: Status, 
+        gender: Gender, 
+        species: Species, 
+        image: string
+    ) {
         this._id = id
         this._name = name
         this._status = status
         this._gender = gender
         this._species = species
         this._image = image
+    }
+
+    get users(): userRequestDTO[] | User[] {
+        return this._users;
+    }
+
+    set users(value: userRequestDTO[] | User[]) {
+        this._users = value;
     }
 
     get id(): number {

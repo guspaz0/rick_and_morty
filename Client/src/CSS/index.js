@@ -3,7 +3,7 @@ import { AboutStyle } from './about';
 import { Button1, Card1, Img, Specie, Title, Gender, Fav, P1 } from './card';
 import { StyledCard } from "./cards";
 import { ErrorMsg } from "./error";
-import { Login1 } from "./formlogin";
+import { FormLoginStyle } from "./formlogin";
 import { Titulo } from "./home";
 import { AboutStyle2, DetailStyle, FavStyle } from "./nav";
 import { Navbar } from "./searchbar";
@@ -16,7 +16,7 @@ export {
     Button1, Card1, Img, Specie, Title, Gender, Fav, P1,
     StyledCard,
     ErrorMsg,
-    Login1,
+    FormLoginStyle,
     Titulo,
     AboutStyle2, DetailStyle, FavStyle,
     Navbar

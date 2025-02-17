@@ -2,7 +2,7 @@ import React from "react";
 import SearchBar from "./SearchBar";
 import { NavLink} from "react-router-dom";
 import { DetailStyle, FavStyle,AboutStyle2  } from '../CSS';
-import { getUserFavs } from "../redux/actions";
+import { getUserFavs } from "../redux/characters/actions.ts";
 import { useDispatch, useSelector } from "react-redux";
 
 

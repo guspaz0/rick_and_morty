@@ -5,8 +5,6 @@ import FavoriteDTO from "../Dto/FavoriteDTO";
 export default {
     postFav: async function(req: Request, res: Response) {
         try {
-            //console.log(req.body)
-            //const {id, name, species, gender, image, status } = ;
             const user = req.headers.authorization
             const favRequest: FavoriteDTO = req.body
             const newFav = await Favorites.postFavhandler(favRequest, Number(user));

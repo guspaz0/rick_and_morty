@@ -1,4 +1,4 @@
-import {  UserModel } from '../configs/data-source';
+import UserRepository from '../repository/userRepository';
 import { loginRequestDTO } from '../Dto/loginRequestDTO';
 import { loginResponseDTO } from '../Dto/loginResponseDTO';
 import { userRequestDTO } from '../Dto/userRequestDTO';
@@ -8,31 +8,43 @@ import {User} from '../entities/User';
 export default {
     register: async function(user: userRequestDTO): Promise<User> {
         try {
-            const createUser = await UserModel.create(user)
-            return await UserModel.save(createUser)
+            const createUser = await UserRepository.create(user)
+            return await UserRepository.save(createUser)
         } catch (error: any)  {
             return error
         }
     },
     findUser: async function(emailOrId: String | Number): Promise<User> {
         try {
-            let condition = {}
-            if (emailOrId instanceof String) condition = {email: emailOrId}
-            if (emailOrId instanceof Number) condition = {id: emailOrId}
-            return await UserModel.findOneByOrFail(condition)
+            if (typeof(emailOrId) === 'string') {
+                return await UserRepository.findByEmail(emailOrId)
+            }
+            if (typeof(emailOrId) === 'number') {
+                return await UserRepository.findById(emailOrId)
+            } else throw Error('parametros incorrectos')
         } catch (error: any) {
+            return error
+        }
+    },
+    getAllFavorites: async function(userId:number){
+        try {
+            const allFavs = await UserRepository.findFavorites(userId)
+            if (allFavs.favorites.length > 0) {
+                return allFavs
+            }
+        } catch (error) {
             return error
         }
     },
     handleLogin: async function(loginReq: loginRequestDTO): Promise<loginResponseDTO> {
         try {
-            const user = await UserModel.findOneByOrFail({
-                email: loginReq.email, 
-                password: loginReq.password
-            })
+            const user = await this.findUser(loginReq.email)
             const result: loginResponseDTO = {
-                access: user? true : false, 
+                access: false, 
                 email: user.email
+            }
+            if (user.password == loginReq.password) {
+                result.access = true
             }
             return result
         } catch (error: any) {
@@ -41,14 +53,15 @@ export default {
     },
     delete: async function(id: number) {
         try {
-            const userData = await UserModel.findOne({
-                relations: { favorites: true},
-                where: {id: id}
+            const userData = await UserRepository.findOneOrFail({
+                relations: { favorites: true },
+                where: {id}
             })
+            console.log('user data: ',userData)
             if (userData) {
                 userData.favorites = []
-                await UserModel.save(userData)
-                await UserModel.delete(userData)
+                await UserRepository.save(userData)
+                await UserRepository.delete(userData)
                 return {message: `User id ${id} deleted`}
             } else throw Error(`User ${id} Not found`)
         } catch (error: any) {

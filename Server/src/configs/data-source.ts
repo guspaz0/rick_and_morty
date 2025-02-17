@@ -5,7 +5,7 @@ import {User} from "../entities/User";
 
 export const AppDataSource = new DataSource({
     type: "postgres",
-    host: "192.168.5.2",
+    host: DB_HOST,
     port: Number(DB_PORT) || 5432,
     username: DB_USER,
     password: DB_PASSWORD,
@@ -17,6 +17,3 @@ export const AppDataSource = new DataSource({
     subscribers: [],
     migrations: []
 })
-
-export const UserModel = AppDataSource.getRepository(User)
-export const FavoriteModel = AppDataSource.getRepository(Favorite)

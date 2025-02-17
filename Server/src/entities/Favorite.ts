@@ -27,6 +27,16 @@ export class Favorite {
     @ManyToMany(()=> User, (user) => user.favorites, {
         cascade: true,
     })
-    @JoinTable()
+    @JoinTable({
+        name: "user_favorites",
+        joinColumn: {
+            name: "favorite_id",
+            referencedColumnName: "id"
+        },
+        inverseJoinColumn: {
+            name: "user_id",
+            referencedColumnName: "id"
+        }
+    })
     users: User[]
 }

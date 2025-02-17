@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToMany, JoinTable } from "typeorm"
+import { Column, Entity, PrimaryGeneratedColumn, ManyToMany, JoinTable, JoinColumn, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from "typeorm"
 import { Favorite } from "./Favorite"
 
 @Entity({
@@ -11,24 +11,32 @@ export class User {
     @Column({length: 30})
     name: string
 
-    @Column({
-        length: 100,
-        unique: true
-    })
+    @Column({length: 100, unique: true})
     email: string
 
     @Column({length: 255})
     password: string
 
-    @Column({ default: new Date(Date.now())})
-    created_at: Date
+    @CreateDateColumn({type: "timestamp", nullable: true, name: "created_at"})
+    createdAt: Date
 
-    @Column({ default: null })
-    updated_at: Date
+    @UpdateDateColumn({type: "timestamp", nullable: true, name: "updated_at"})
+    updatedAt: Date
 
-    @Column({ default: null })
-    deleted_at: Date
+    @DeleteDateColumn({type: "timestamp", nullable: true, name: "deleted_at"})
+    deletedAt: Date
 
-    @ManyToMany(()=> Favorite)
+    @ManyToMany(()=> Favorite, (favorite) => favorite.users)
+    @JoinTable({
+        name: "user_favorites",
+        joinColumn: {
+            name: "user_id",
+            referencedColumnName: "id"
+        },
+        inverseJoinColumn: {
+            name: "favorite_id",
+            referencedColumnName: "id"
+        }
+    })
     favorites: Favorite[]
 }

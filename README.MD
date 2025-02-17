@@ -2,10 +2,45 @@
 Rick And Morty APP
 </h1>
 
-
-<span align="center">
+<div align="center">
     <img src="Server/src/assets/rickandmorty.jpg" alt="Rick And Morty"/>
-</span>
+    <table>
+        <caption>Tecnologias:</caption>
+        <tr><th>Backend</th><th>Frontend</th></tr>
+        <tr>
+            <td colspan="2" align="center">
+                <img src="https://img.shields.io/badge/Node-latest-green?style=flat-square"/>
+                <img src="https://img.shields.io/badge/TypeScript-latest-blue?style=flat-square">
+                <img src="https://img.shields.io/badge/github-latest-darkblue?style=flat-square">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="https://img.shields.io/badge/Express-latest-white?style=flat-square">
+            </td>
+            <td>
+                <img src="https://img.shields.io/badge/Redux-latest-purple?style=flat-square">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="https://img.shields.io/badge/postgreSQL-latest-slateblue?style=flat-square">
+            </td>
+            <td>
+                <img src="https://img.shields.io/badge/React-latest-blue?style=flat-square">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="https://img.shields.io/badge/classValidator-latest-blue?style=flat-square">
+            </td>
+            <td>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
 
 ---
 App donde se puede listar personajes de la serie animada "Rick & Morty". El usuario se registra y puede guardar sus personajes favoritos.

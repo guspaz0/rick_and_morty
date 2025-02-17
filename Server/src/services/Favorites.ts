@@ -1,29 +1,28 @@
-import { FavoriteModel } from '../configs/data-source';
+import FavoriteRepository from '../repository/favoriteRepository';
 import { Favorite } from '../entities/Favorite';
 import { User } from '../entities/User'
 import FavoriteDTO from '../Dto/FavoriteDTO'
 import UserService from './Users'
 
 export default {
-    postFavhandler: async function(favReq: FavoriteDTO, user: Number) {
+    postFavhandler: async function(favReq: FavoriteDTO, user: number) {
         try {
-            let favorite = await FavoriteModel.findOne({
+            let favorite = await FavoriteRepository.findOne({
                 relations: { users: true },
                 where: {id: favReq.id}
             })
-            const foundUser: User = await UserService.findUser(user)
             if (!favorite) {
-                favorite = new Favorite()
-                favorite.id = favReq.id
-                favorite.name = favReq.name
-                favorite.gender = favReq.gender
-                favorite.species = favReq.species
-                favorite.status = favReq.status
-                favorite.image = favReq.image
+                favorite = await FavoriteRepository.create({
+                    id: favReq.id,
+                    name: favReq.name,
+                    gender: favReq.gender,
+                    species: favReq.species,
+                    status: favReq.status,
+                    image: favReq.image
+                })
             }
-            favorite.users = [...favorite.users, foundUser]
-            const newFav = await FavoriteModel.save(favorite)
-            return newFav
+            const newFav = await FavoriteRepository.save(favorite)
+            return await FavoriteRepository.addOrRemoveUser(user,newFav.id)
         } catch(error) {
             return error
         }
@@ -34,7 +33,7 @@ export default {
             let condition = {}
             if (userEmailOrId instanceof String) condition = {email: userEmailOrId}
             if (userEmailOrId instanceof Number) condition = {id: userEmailOrId}
-            const allFavs = await FavoriteModel.find({
+            const allFavs = await FavoriteRepository.find({
                 relations: { users: true },
                 where: {
                     users: condition
@@ -47,7 +46,7 @@ export default {
     },
     findOne: async function(favId: number) {
         try {
-            return await FavoriteModel.findOneByOrFail({id: favId})
+            return await FavoriteRepository.findOneByOrFail({id: favId})
         } catch (error) {
             throw new Error()
         }
@@ -55,7 +54,7 @@ export default {
     deleteFav: async function(favId: number, emailOrUser: String | number ) {
         try {
             const found: Favorite = await this.findOne(favId)
-            const deleted = await FavoriteModel.delete(found.id)
+            const deleted = await FavoriteRepository.delete(found.id)
             if (deleted) {
                 return {message: `Destroyed ${favId}`+ deleted}
             } else throw new Error()

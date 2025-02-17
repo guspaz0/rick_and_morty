@@ -1,7 +1,7 @@
 import { connect, useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import React, { useEffect } from 'react';
-import { orderCards, filterCards, orderReset, getUserFavs } from "../redux/actions";
+import { orderCards, filterCards, orderReset, getUserFavs } from "../redux/characters/actions.ts";
 import {DivSelector, Card1, Img, P1, Title, Specie, Gender} from '../CSS/favorites';
 
 

@@ -1,4 +1,4 @@
-import {IsEmail, IsNotEmpty, MinLength} from 'class-validator'
+import { IsEmail, IsNotEmpty, MinLength } from 'class-validator'
 
 export class userRequestDTO {
     @IsNotEmpty()
@@ -7,7 +7,7 @@ export class userRequestDTO {
     private _email: string;
     @MinLength(6,{message: "password must be 4 characters minimum"})
     private _password: string;
-    private _created_at: Date;
+    private _createdAt: Date = new Date(Date.now() / 1000);
 
     constructor(
         name: string, email: string, password: string
@@ -15,7 +15,6 @@ export class userRequestDTO {
         this._name = name
         this._email = email
         this._password = password
-        this._created_at = new Date(Date.now() / 1000);
     }
 
     get name(): string {
@@ -30,7 +29,7 @@ export class userRequestDTO {
         return this._password;
     }
 
-    get created_at(): Date {
-        return this._created_at;
+    get createdAt(): Date {
+        return this._createdAt;
     }
 }

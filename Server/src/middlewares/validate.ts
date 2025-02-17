@@ -32,6 +32,7 @@ export default {
     favorite: async function(req: Request,res: Response, next: NextFunction) {
         try {
             const {id, name, status, gender, species, image} = req.body
+            const userId = req.headers.authorization
             const favoriteDto = new FavoriteDTO(id,name,status,gender,species,image)
             const errors = await validate(favoriteDto)
             if (errors.length > 0) {

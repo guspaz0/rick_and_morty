@@ -1,16 +1,14 @@
 import styled from "styled-components";
 
-export const Login1 = styled.div`
+export const FormLoginStyle = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 400px;
-    height: 400px;
-    background-color: gray;
+    padding: 5px;
+    backdrop-filter: blur(1px);
     border-radius: 5px;
     box-shadow: 50% black;
-    line-height: .5cm;
     label {
         font-size: .6cm;
         line-height: .5cm;
@@ -24,10 +22,10 @@ export const Login1 = styled.div`
         border-width: 1px;
         border-style: solid;
         line-height: 1cm;
-    :hover{
-            background-color: yellow;
-            color: black;
-        }
+    }
+    button:hover{
+        background-color: yellow;
+        color: black;
     }
     input{
         border-radius: 5px;
@@ -46,10 +44,6 @@ export const Login1 = styled.div`
     img{
         display: flex;
         position: relative;
-        left: 100px;
-        height: 200px;
-        justify-content: center;
-        align-item: center;
-        border-radius: 130px;
+        width: 100%;
     }
 ` 

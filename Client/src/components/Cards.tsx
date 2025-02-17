@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyledCard } from '../CSS';
+import {Character} from '../interfaces/Character'
 
 
-export function Cards(props) {
-  const { characters } = props;
+export function Cards({characters}: Character[]) {
+
   return (
     <div style={{
         position: "relative",
@@ -11,7 +12,6 @@ export function Cards(props) {
         justifyContent: 'space-evenly',
         flexDirection: "row",
         flexWrap: "wrap",
-        justifyContent: "center",
         alignItems: "center",
         margin: "0px",
         gap: "10px"
@@ -19,13 +19,7 @@ export function Cards(props) {
       {characters.map(character => (
         <StyledCard
           key={character.name}
-          name={character.name}
-          species={character.species}
-          gender={character.gender}
-          image={character.image}
-          origin={character.origin}
-          status={character.status}
-          id={character.id}
+          character={character} 
           onClose={props.onClose}
         />
       ))}

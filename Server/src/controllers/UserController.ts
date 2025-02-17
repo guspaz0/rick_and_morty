@@ -7,7 +7,7 @@ import { userRequestDTO } from "../Dto/userRequestDTO";
 
 
 export default {
-    postUser: async function(req: Request, res: Response) {
+    create: async function(req: Request, res: Response) {
         try {
             const {name, password, email} = req.body
             const userRequest = new userRequestDTO(name, email, password)
@@ -18,6 +18,15 @@ export default {
                 res.status(201).json(newUser);
             }
         } catch (error: any) {
+            res.status(500).json(error)
+        }
+    },
+    getFavorites: async function(req: Request, res: Response){
+        try {
+            const userId = req.headers['authorization']
+            const favorites = await Users.getAllFavorites(Number(userId))
+            res.status(200).json(favorites)
+        } catch (error) {
             res.status(500).json(error)
         }
     },
@@ -35,7 +44,10 @@ export default {
         try {
             const {id} = req.params
             const deleted = await Users.delete(+id)
-            res.status(203).json(deleted)
+            if (deleted) {
+                console.log(deleted)
+                res.status(203).json(deleted)
+            }
         } catch (error: any) {
             res.status(500).json(error.message)
         }

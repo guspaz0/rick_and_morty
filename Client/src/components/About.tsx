@@ -1,5 +1,4 @@
 import React from 'react';
-//import img from './yo_perfil.jpg'
 import { AboutStyle } from '../CSS';
 
 
