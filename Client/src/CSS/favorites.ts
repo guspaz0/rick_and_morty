@@ -1,26 +1,19 @@
 import styled from "styled-components";
 
 export const Card1 = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
     position:relative;
-    margin-right: 20px;
     width: 260px;
-    height: 350px;
-    background-color: white;
-    border-radius: 5%;
-    box-shadow: 2px -6px 10px black;
-    top: 0px;
+    height: 260px;
+    background-color: rgba(255,255,255,.2);
+    border-radius: 5px;
+    filter: drop-shadow(0px 0px 6px black);
 `;
 
 export const Img = styled.img`
-    border-radius: 5%;
-    box-shadow: 2px -6px 10px black;
+    border-radius: 5px;
     width: 230px;
     position: relative;
-    top: 50px;
+    top: 15px;
     left: 15px;
 `;
 
@@ -29,13 +22,15 @@ export const Title = styled.h1`
     font-weight: bold;
     font-size: 1.2rem;
     position: absolute;
-    left: 40px;
-    bottom: 70px;
-    opacity: 1;
+    left: 20px;
+    top: 5px;
+    background-color: rgba(0,0,0,.4);
+    padding-inline: 5px;
+    border-radius: 5px;
 `;
 
-export const Specie = styled.h2`
-    color: black;
+export const SpecieStyle = styled.h2`
+    color: var(--text-color);
     font-size: 1.2rem;
     font-weight: 400;
     position: absolute;
@@ -43,8 +38,8 @@ export const Specie = styled.h2`
     left: 30px;
 `;
 
-export const Gender = styled.h2`
-    color: black;
+export const GenderStyle = styled.h2`
+    color: var(--text-color);
     font-size: 1.2rem;
     font-weight: 400;
     position: absolute;
@@ -88,15 +83,34 @@ export const P1 = styled.p`
     opacity: .5;
 `;
 
-export const DivSelector = styled.div`
+
+export const FilterStyles = styled.div`
+    padding: 5px; 
     display: flex;
-    position: absolute;
-    background-color: white;
+    background-color: rgba(255,255,255,0.2);
     align-items: center;
     justify-content: space-around;
     border-radius: 5px;
     top: 100px;
-    left: center;
-    width: 550px;
-    height: 35px;
-`;
+    gap: 5px;
+    select {
+        border: none;
+        padding: 3px;
+        border-radius: 5px;
+    }
+`
+export const FavoritesStyle = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .card-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+`
+;
+

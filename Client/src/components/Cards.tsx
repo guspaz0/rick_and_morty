@@ -1,11 +1,18 @@
 import React from 'react';
-import { StyledCard } from '../CSS';
-import {Character} from '../interfaces/Character'
+import { StyledCard } from './styles/StyledCard';
+import {Character, PaginationInfo} from '../interfaces/Character'
+import Pagination from './Pagination';
 
+interface Props{
+  characters: Character[],
+  pageInfo: PaginationInfo,
+  onClose: React.MouseEventHandler<HTMLButtonElement>
+}
 
-export function Cards({characters}: Character[]) {
+export const Cards: React.FC<Props>= ({characters, onClose, pageInfo}) => {
 
-  return (
+  return (<>
+    {pageInfo.count? <Pagination perPage={characters.length} pageInfo={pageInfo}/>: <></>}
     <div style={{
         position: "relative",
         display: 'flex',
@@ -18,12 +25,15 @@ export function Cards({characters}: Character[]) {
       }}>
       {characters.map(character => (
         <StyledCard
-          key={character.name}
+          key={character.id}
           character={character} 
-          onClose={props.onClose}
+          onClose={onClose}
         />
       ))}
     </div>
+    </>
   );
     
 }
+
+export default Cards

@@ -1,23 +1,29 @@
 import styled from "styled-components";
 
 export const AboutStyle = styled.div`
-    background-color:white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    filter: drop-shadow(2px 4px 6px black);
+    align-items: center;
+    justify-content: space-evenly;
     height: auto;
     width: 100%;
     border-radius: 5px;
-    position: absolute;
-    top: 100px;
-    ul, li, p{
+    font-size: 16px;
+
+    ul, li {
         opacity: .9;
         font-size: .8cm;
     }
+
     img{
-    border-radius: 200px;
-    width: 250px;
-    position: Absolute;
-    top: 20px;
-    right: 20px;
+        border-radius: 200px;
+        width: 250px;
+        top: 20px;
+        right: 20px;
     }
+
     button {
         background-color: rgb(200 0 0);
         font-weight: bold;

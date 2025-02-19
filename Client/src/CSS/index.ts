@@ -1,7 +1,6 @@
 import { Estrellas } from "./app";
 import { AboutStyle } from './about';
 import { Button1, Card1, Img, Specie, Title, Gender, Fav, P1 } from './card';
-import { StyledCard } from "./cards";
 import { ErrorMsg } from "./error";
 import { FormLoginStyle } from "./formlogin";
 import { Titulo } from "./home";
@@ -14,7 +13,6 @@ export {
     Estrellas,
     AboutStyle,
     Button1, Card1, Img, Specie, Title, Gender, Fav, P1,
-    StyledCard,
     ErrorMsg,
     FormLoginStyle,
     Titulo,

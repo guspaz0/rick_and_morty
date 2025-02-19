@@ -27,16 +27,5 @@ export class User {
     deletedAt: Date
 
     @ManyToMany(()=> Favorite, (favorite) => favorite.users)
-    @JoinTable({
-        name: "user_favorites",
-        joinColumn: {
-            name: "user_id",
-            referencedColumnName: "id"
-        },
-        inverseJoinColumn: {
-            name: "favorite_id",
-            referencedColumnName: "id"
-        }
-    })
     favorites: Favorite[]
 }

@@ -1,5 +1,5 @@
 services:
-  server:
+  server-rym:
     image: node
     build:
       dockerfile: backend.Dockerfile
@@ -22,7 +22,7 @@ services:
     networks:
       - put_net
     command: npm start
-  client:
+  client-rym:
     image: node
     build:
       dockerfile: client.Dockerfile
@@ -35,10 +35,10 @@ services:
     ports:
       - 5173:5173
     environment:
-      VITE_BACKEND: http://server:3002
+      VITE_BACKEND: http://localhost:3002
     networks:
       - put_net
-    command: tail -f /dev/null
+    command: npm run host
   db-back:
     image: postgres
     container_name: db-rickymorty

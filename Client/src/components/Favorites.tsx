@@ -1,72 +1,81 @@
-import { connect, useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import React, { useEffect } from 'react';
-import { orderCards, filterCards, orderReset, getUserFavs } from "../redux/characters/actions.ts";
-import {DivSelector, Card1, Img, P1, Title, Specie, Gender} from '../CSS/favorites';
+import characterActions  from "../redux/characters/actions.ts";
+import userActions from '../redux/user/actions.ts';
+import { FilterStyles, Card1, Img, P1, Title, SpecieStyle, GenderStyle, FavoritesStyle} from '../CSS/favorites.ts';
+import { Species, Status, Gender } from '../interfaces/Character.ts';
+import { TAppState, TDispatch } from '../redux/store.ts';
 
 
-export function Favorites (props) {
+export default function Favorites() {
 
-const myFavorites = useSelector(state => state.myFavorites)
-const dbFavs = useSelector(state => state.dbFavorites)
-const User = useSelector(state => state.User)
+   const dispatch = useDispatch<TDispatch>()
 
-const dispatch = useDispatch()
-//dispatch(getUserFavs(User))
-function handleChange(e) {
-   if (e.target.name === 'Order') {
-      dispatch(orderCards(e.target.value))
-   } else {
-      dispatch(filterCards(e.target.value))
+   const Favorites = useSelector(({user}: TAppState) => user.favorites)
+   const User = useSelector(({user}: TAppState) => user.user)
+
+   function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
+      const {name, value} = e.target
+      if (name === 'Order') {
+         dispatch(characterActions.orderCards(value))
+      } else {
+         dispatch(characterActions.filterCards({[name]: value}))
+      }
    }
-}
-useEffect(() => {
-   if (myFavorites.length !== dbFavs.length){
-      dispatch(getUserFavs(User))
-   }
-},[myFavorites, dbFavs])
 
-function handleReset() {
-   dispatch(orderReset())
-}
+   useEffect(() => {
+      if (Favorites.length === 0) {
+         dispatch(userActions.getUserFavs(User.id))
+      }
+   },[dispatch, User, Favorites])
+
+   function handleReset() {
+      dispatch(characterActions.orderReset())
+   }
 
    return(
-   <>
-   <DivSelector>
-      <label for="order">Ordenar por id:</label>
-      <select name="Order" onChange={handleChange}>
-         <option value="Ascendente">Ascendente</option>
-         <option value="Descendente">Descendente</option>
-      </select>
-      <label for="Gender">Filtrar por género:</label>
-      <select name="Gender" onChange={handleChange}>
-         <option value="Male">Male</option>
-         <option value="Female">Female</option>
-         <option value="Genderless">Genderless</option>
-         <option value="unknown">unknown</option>
-      </select>
-      <button onClick={handleReset}>Reset</button>
-   </DivSelector>
-      {myFavorites?.map(({ id, name, species, image, gender }) => 
-      <Card1>
+   <FavoritesStyle>
+      <FilterStyles>
+         <label htmlFor="order">Ordenar por id:
+            <select name="Order" onChange={handleChange}>
+               <option value="Ascendente">Ascendente</option>
+               <option value="Descendente">Descendente</option>
+            </select>
+         </label>
+         <label htmlFor="Gender">Género:
+            <select name="Gender" onChange={handleChange}>
+               {Object.entries(Gender).map(([key, value]) => 
+                  <option key={key} value={value}>{value}</option>
+               )}
+            </select>
+         </label>
+         <label htmlFor="Species">Especie:
+            <select name="Species" onChange={handleChange}>
+               {Object.entries(Species).map(([key, value]) => 
+                  <option key={key} value={value}>{value}</option>
+               )}
+            </select>
+         </label>
+         <label htmlFor="Status">Estado:
+            <select name="Status" onChange={handleChange}>
+               {Object.entries(Status).map(([key, value]) => 
+                  <option key={key} value={value}>{value}</option>
+               )}
+            </select>
+         </label>
+         <button onClick={handleReset}>Reset</button>
+      </FilterStyles>
+      <div className='card-container'>
+         {Favorites?.map(({ id, name, image }) => 
+         <Card1 key={id}>
             <Link to={`/detail/${id}`}> 
-            <Img src={image} alt="img not found" />
-               <P1/>
+               <Img src={image} alt={name}/>
                <Title>{name}</Title>
-            <Img/>
-         </Link>
-         <Specie>Specie:{species}</Specie>
-         <Gender>Gender:{gender}</Gender>
-      </Card1>
-      )}
-   </>
+            </Link>
+         </Card1>
+         )}
+      </div>
+   </FavoritesStyle>
    );
 }
-
-// export function mapStateToProps(props) {
-// return {
-//    myFavorites: props.myFavorites,
-//    }
-// }
-
-// export default connect(mapStateToProps)(Favorites);

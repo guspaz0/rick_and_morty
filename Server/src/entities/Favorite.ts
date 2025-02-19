@@ -29,12 +29,12 @@ export class Favorite {
     })
     @JoinTable({
         name: "user_favorites",
-        joinColumn: {
-            name: "favorite_id",
-            referencedColumnName: "id"
-        },
         inverseJoinColumn: {
             name: "user_id",
+            referencedColumnName: "id",
+        },
+        joinColumn: {
+            name: "favorite_id",
             referencedColumnName: "id"
         }
     })

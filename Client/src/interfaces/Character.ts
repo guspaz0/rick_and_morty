@@ -1,3 +1,5 @@
+import {User} from './User'
+
 // Enum for gender of the character
 enum Gender {
     Male = 'Male',
@@ -44,13 +46,14 @@ interface Character {
     episode: string[]; // Array of episode URLs where the character appeared
     url: string; // URL to the character's data
     created: string; // Date the character was created
+    user?: User
 }
 
 interface PaginationInfo {
-    count: number
-    pages: number
-    next: string | null
-    prev: string | null
+    count?: number
+    pages?: number 
+    next?: string | null
+    prev?: string | null
 }
 
 interface PageResults {

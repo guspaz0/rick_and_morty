@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
-import { Navbar } from '../CSS';
+import { CharacterName } from '../interfaces/Character';
 
-export default function SearchBar(props) {
-   const [characters, setCharacters] = useState("");
+interface Props {
+   onSearch: React.FormEventHandler<HTMLFormElement>
+}
 
-   const handleChange = (e) => {
+export default function SearchBar({onSearch}: Props) {
+   const [search, setSearch] = useState<CharacterName>({name: ""});
+
+   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const {value} = e.target;
-      setCharacters(value)
-      }
+      setSearch({name: value})
+   }
    
    return (
-      <Navbar>
-         <input type='search' placeholder='Buscar' onChange={handleChange} />
-         <button onClick={() => props.onSearch(characters)}>Agregar</button>
-      </Navbar>
+      <form onSubmit={onSearch}>
+         <input type='search' 
+            placeholder='Buscar' 
+            name="name" 
+            value={search.name} 
+            onChange={handleChange}/>
+         <input className="nav-btn" type="submit" value="Buscar"/>
+      </form>
    );
 }

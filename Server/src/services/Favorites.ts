@@ -3,9 +3,10 @@ import { Favorite } from '../entities/Favorite';
 import { User } from '../entities/User'
 import FavoriteDTO from '../Dto/FavoriteDTO'
 import UserService from './Users'
+import Favorites from "../routes/favorites";
 
 export default {
-    postFavhandler: async function(favReq: FavoriteDTO, user: number) {
+    postFavhandler: async function(favReq: FavoriteDTO, userId: number) {
         try {
             let favorite = await FavoriteRepository.findOne({
                 relations: { users: true },
@@ -21,8 +22,8 @@ export default {
                     image: favReq.image
                 })
             }
-            const newFav = await FavoriteRepository.save(favorite)
-            return await FavoriteRepository.addOrRemoveUser(user,newFav.id)
+            const newFav = await FavoriteRepository.save(favorite);
+            return await FavoriteRepository.addOrRemoveUser(userId,newFav.id)
         } catch(error) {
             return error
         }

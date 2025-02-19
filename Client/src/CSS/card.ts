@@ -74,6 +74,7 @@ export const Fav = styled.a`
     position: absolute;
     left: 10px;
     top: 10px;
+    cursor: pointer;
 `;
 
 export const P1 = styled.p`

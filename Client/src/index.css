@@ -2,13 +2,32 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+  :root.ligth {
+    font-size: 14px;
+    --bg-color: #fff;
+    --text-color: #123;
+    --theme-section-bg-lightgrad: linear-gradient(103deg,#f5f6ff 10%,#dff4fb);
+  }
+  :root.dark{
+      --bg-color: #123;
+      --text-color: #fff;
+      --theme-section-bg-lightgrad: linear-gradient(103deg,#212128 10%,#1a262c);
+  }
+  #root {
+    position: absolute;
+    background-image: url(https://i.pinimg.com/originals/74/ce/23/74ce2337bade70a41d90adac7d861d23.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+  }
 }

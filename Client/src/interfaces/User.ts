@@ -2,10 +2,11 @@ import {Character} from "./Character.ts";
 
 interface User {
     id?: number
-    name: string
-    email: string
+    name?: string
+    email?: string
     createdAt?: Date
     updatedAt?: Date
+    access?: boolean
     favorites?: Character[]
 }
 

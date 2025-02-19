@@ -29,9 +29,7 @@ export default {
     getAllFavorites: async function(userId:number){
         try {
             const allFavs = await UserRepository.findFavorites(userId)
-            if (allFavs.favorites.length > 0) {
-                return allFavs
-            }
+            return allFavs.favorites
         } catch (error) {
             return error
         }
@@ -40,11 +38,13 @@ export default {
         try {
             const user = await this.findUser(loginReq.email)
             const result: loginResponseDTO = {
-                access: false, 
+                access: false,
                 email: user.email
             }
             if (user.password == loginReq.password) {
                 result.access = true
+                result.name = user.name
+                result.id = user.id
             }
             return result
         } catch (error: any) {
